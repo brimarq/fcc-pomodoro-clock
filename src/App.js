@@ -11,7 +11,7 @@ const defaultClockState = {
   // sessionTimer: new Date(Date.UTC(1970, 0, 1, 0, 25, 0)),
   breakTimer: breakTimer,
   sessionTimer: sessionTimer,
-  isSession: true,
+  isBreak: false,
   isTimerRunning: false,
   countdown: null,
   timerLabel: "Session",
