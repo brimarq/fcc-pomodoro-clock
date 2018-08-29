@@ -4,6 +4,29 @@ const defaultBreakMs = 5 * 60000, defaultSessionMs = 25 * 60000;
 let breakTimer = new Date(defaultBreakMs);
 let sessionTimer = new Date(defaultSessionMs);
 
+// const getUTCmmss = () => {
+//   const timer = this.state.isBreak ? breakTimer : sessionTimer;
+//   const padZero = (num) => num < 10 ? '0' + num : num;
+//   return padZero(timer.getUTCMinutes()) + ':' + padZero(timer.getUTCSeconds());
+// };
+
+// Add func for returning mm:ss string from timer
+const getUTCmmss = (timer) => {
+  const padZero = (num) => num < 10 ? '0' + num : num;
+  return padZero(timer.getUTCMinutes()) + ':' + padZero(timer.getUTCSeconds());
+};
+
+// Adjust the timer with option to reset to zero first.
+const setTimer = (timer, minutes, fromZero = false) => {
+  let ms = minutes * 60000;
+  if (fromZero) {
+    timer.setTime(ms);
+  } else {
+    timer.setTime(timer.getTime() + ms);
+  }
+  return timer;
+};
+
 const defaultClockState = {
   breakLength: 5,
   sessionLength: 25, 
@@ -15,14 +38,12 @@ const defaultClockState = {
   isTimerRunning: false,
   countdown: null,
   timerLabel: "Session",
-  timeLeft: null
+  timeLeft: getUTCmmss(sessionTimer)
 };
 
-// Add func for returning mm:ss string from timer
-const getUTCmmss = (timer) => {
-  const padZero = (num) => num < 10 ? '0' + num : num;
-  return padZero(timer.getUTCMinutes()) + ':' + padZero(timer.getUTCSeconds());
-};
+
+
+
 
 
 // Add method for returning mm:ss string from Date objects
@@ -79,26 +100,29 @@ class PomodoroClock extends Component {
     const eleId = e.target.id;
     // HANDLER FOR BREAK/SESSION SETTINGS
     if (eleId.includes('-increment') || eleId.includes('-decrement')) {
-      // Amount to increase/decrease
+      // Amount to increase/decrease (in minutes)
       const amt = eleId.includes('-increment') ? 1 : -1;
       // Which setting was clicked? Used to choose appropriate new state.
       const setting = eleId.includes('break-') ? 'break' : 'session';
-      const setTimer = (timer) => {
-        // Adjust the timer by amt * 60000ms (60000ms = one minute)
-        timer.setTime(timer.getTime() + (amt * 60000));
-        return timer;
-      };
+      // const setTimer = (timer) => {
+      //   // Adjust the timer by amt * 60000ms (60000ms = one minute)
+      //   timer.setTime(timer.getTime() + (amt * 60000));
+      //   return timer;
+      // };
+      // Options for the newState to be set
       const newState = {
         'break': (prevState) => ({ 
           breakLength: prevState.breakLength + amt,
-          breakTimer: setTimer(prevState.breakTimer)
+          breakTimer: setTimer(prevState.breakTimer, amt),
+          
         }), 
         'session': (prevState) => ({ 
           sessionLength: prevState.sessionLength + amt,
-          sessionTimer: setTimer(prevState.sessionTimer)
+          sessionTimer: setTimer(prevState.sessionTimer, amt),
         }) 
       };
       
+      // Set the state depending upon which button was clicked
       this.setState(newState[setting]);
     } else {
       return;
@@ -112,6 +136,8 @@ class PomodoroClock extends Component {
         <BreakSetting 
           handleClick={this.handleClick}
           breakLength={this.state.breakLength}
+          breakTimer={this.state.breakTimer} 
+          sessionTimer={this.state.sessionTimer}
         />
         <SessionSetting 
           handleClick={this.handleClick}
@@ -119,6 +145,9 @@ class PomodoroClock extends Component {
         />
         <Timer 
           handleClick={this.handleClick}
+          breakTimer={this.state.breakTimer} 
+          sessionTimer={this.state.sessionTimer}
+          timeLeft={this.state.timeLeft}
         />
       </div>
     );
