@@ -11,6 +11,12 @@ const defaultClockState = {
   countdown: null,
 };
 
+// Add method for returning mm:ss string from Date objects
+Date.prototype.getUTCmmss = function() {
+  const padZero = (num) => num < 10 ? '0' + num : num;
+  return padZero(this.getUTCMinutes()) + ':' + padZero(this.getUTCSeconds());
+};
+
 class BreakSetting extends Component {
   render() {
     return(
@@ -57,13 +63,16 @@ class PomodoroClock extends Component {
     const eleId = e.target.id;
     // HANDLER FOR BREAK/SESSION SETTINGS
     if (eleId.includes('-increment') || eleId.includes('-decrement')) {
+      // Amount to increase/decrease
       const amt = eleId.includes('-increment') ? 1 : -1;
+      // Which setting was clicked? Used to choose appropriate new state.
       const setting = eleId.includes('break-') ? 'break' : 'session';
       const setTimer = (timer) => {
+        // Adjust the timer by amt * 60000ms (60000ms = one minute)
         timer.setTime(timer.getTime() + (amt * 60000));
         return timer;
       };
-      const state = {
+      const newState = {
         'break': (prevState) => ({ 
           breakLength: prevState.breakLength + amt,
           breakTimer: setTimer(prevState.breakTimer)
@@ -74,7 +83,7 @@ class PomodoroClock extends Component {
         }) 
       };
       
-      this.setState(state[setting]);
+      this.setState(newState[setting]);
     } else {
       return;
     }
