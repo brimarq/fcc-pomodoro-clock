@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
+const defaultBreakMs = 5 * 60000, defaultSessionMs = 25 * 60000;
+let breakTimer = new Date(defaultBreakMs);
+let sessionTimer = new Date(defaultSessionMs);
 
 const defaultClockState = {
   breakLength: 5,
   sessionLength: 25, 
-  breakTimer: new Date(Date.UTC(1970, 0, 1, 0, 5, 0)),
-  sessionTimer: new Date(Date.UTC(1970, 0, 1, 0, 25, 0)),
+  // breakTimer: new Date(Date.UTC(1970, 0, 1, 0, 5, 0)),
+  // sessionTimer: new Date(Date.UTC(1970, 0, 1, 0, 25, 0)),
+  breakTimer: breakTimer,
+  sessionTimer: sessionTimer,
   isSession: true,
   isTimerRunning: false,
   countdown: null,
+  timerLabel: "Session",
+  timeLeft: null
 };
 
-// Add method for returning mm:ss string from Date objects
-Date.prototype.getUTCmmss = function() {
+// Add func for returning mm:ss string from timer
+const getUTCmmss = (timer) => {
   const padZero = (num) => num < 10 ? '0' + num : num;
-  return padZero(this.getUTCMinutes()) + ':' + padZero(this.getUTCSeconds());
+  return padZero(timer.getUTCMinutes()) + ':' + padZero(timer.getUTCSeconds());
 };
+
+
+// Add method for returning mm:ss string from Date objects
+// Date.prototype.getUTCmmss = function() {
+//   const padZero = (num) => num < 10 ? '0' + num : num;
+//   return padZero(this.getUTCMinutes()) + ':' + padZero(this.getUTCSeconds());
+// };
 
 class BreakSetting extends Component {
   render() {
@@ -43,10 +57,12 @@ class SessionSetting extends Component {
 }
 
 class Timer extends Component {
+
   render() {
     return(
       <div id="timer">
-        Timer
+        <div id="timer-label"></div>
+        <div id="time-left">{getUTCmmss(breakTimer)}</div>
       </div>
     );
   }
