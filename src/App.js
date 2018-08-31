@@ -3,54 +3,23 @@ import './App.css';
 const defaultBreakMs = 5 * 60000, defaultSessionMs = 25 * 60000;
 let breakTimer = new Date(defaultBreakMs);
 let sessionTimer = new Date(defaultSessionMs);
-
-// const getUTCmmss = () => {
-//   const timer = this.state.isBreak ? breakTimer : sessionTimer;
-//   const padZero = (num) => num < 10 ? '0' + num : num;
-//   return padZero(timer.getUTCMinutes()) + ':' + padZero(timer.getUTCSeconds());
-// };
-
-// Add func for returning mm:ss string from timer
-const getUTCmmss = (timer) => {
-  const padZero = (num) => num < 10 ? '0' + num : num;
-  return padZero(timer.getUTCMinutes()) + ':' + padZero(timer.getUTCSeconds());
-};
-
-// Adjust the timer with option to reset to zero first.
-const setTimer = (timer, minutes, fromZero = false) => {
-  let ms = minutes * 60000;
-  if (fromZero) {
-    timer.setTime(ms);
-  } else {
-    timer.setTime(timer.getTime() + ms);
-  }
-  return timer;
-};
+let timer = new Date(25 * 60000);
 
 const defaultClockState = {
   breakLength: 5,
   sessionLength: 25, 
   // breakTimer: new Date(Date.UTC(1970, 0, 1, 0, 5, 0)),
   // sessionTimer: new Date(Date.UTC(1970, 0, 1, 0, 25, 0)),
-  breakTimer: breakTimer,
-  sessionTimer: sessionTimer,
+  // breakTimer: breakTimer,
+  // sessionTimer: sessionTimer,
+  timer: timer,
   isBreak: false,
   isTimerRunning: false,
   countdown: null,
   timerLabel: "Session",
-  timeLeft: getUTCmmss(sessionTimer)
+  timeLeft: "25:00"
 };
 
-
-
-
-
-
-// Add method for returning mm:ss string from Date objects
-// Date.prototype.getUTCmmss = function() {
-//   const padZero = (num) => num < 10 ? '0' + num : num;
-//   return padZero(this.getUTCMinutes()) + ':' + padZero(this.getUTCSeconds());
-// };
 
 class BreakSetting extends Component {
   render() {
@@ -78,12 +47,13 @@ class SessionSetting extends Component {
 }
 
 class Timer extends Component {
-
   render() {
     return(
       <div id="timer">
-        <div id="timer-label"></div>
-        <div id="time-left">{getUTCmmss(breakTimer)}</div>
+        <div id="timer-label">{this.props.timerLabel}</div>
+        <div id="time-left">{this.props.timeLeft}</div>
+        <button id="start-stop" onClick={this.props.handleClick}>START/STOP</button>
+        <button id="reset" onClick={this.props.handleClick}>RESET</button>
       </div>
     );
   }
@@ -96,39 +66,82 @@ class PomodoroClock extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+
   handleClick(e) {
     const eleId = e.target.id;
+
+    const updateTimeLeft = () => {
+      const timer = this.state.timer;
+      // For displaying 60 minutes as "60:00" in mm:ss format
+      const minutes = timer.getUTCHours() === 1 && timer.getUTCMinutes() === 0 ? 60 : timer.getUTCMinutes();
+      const seconds = timer.getUTCSeconds();
+      // Pad single-digit nums with 0 to keep to the mm:ss format.
+      const padZero = (num) => num < 10 ? '0' + num : num;
+      // mm:ss format string
+      const mmss = padZero(minutes) + ':' + padZero(seconds);
+      this.setState({timeLeft: mmss});
+    };
+
+    const updateTimer = (timer, minutes, fromZero = false) => {
+      if (fromZero) {
+        timer.setTime(minutes * 60000);
+      } else {
+        timer.setTime(timer.getTime() + (minutes * 60000));
+      }
+      return timer;
+    };
+
     // HANDLER FOR BREAK/SESSION SETTINGS
     if (eleId.includes('-increment') || eleId.includes('-decrement')) {
+      // Disallow setting changes if timer is running by returning early.
+      if (this.state.isTimerRunning) return;
       // Amount to increase/decrease (in minutes)
       const amt = eleId.includes('-increment') ? 1 : -1;
       // Which setting was clicked? Used to choose appropriate new state.
       const setting = eleId.includes('break-') ? 'break' : 'session';
-      // const setTimer = (timer) => {
-      //   // Adjust the timer by amt * 60000ms (60000ms = one minute)
-      //   timer.setTime(timer.getTime() + (amt * 60000));
-      //   return timer;
-      // };
+      // Limiter for break/session settings length
+      const isAtLimit = (num) => {
+        if (num + amt < 1 || num + amt > 60) {return true;}
+        else {return false;}
+      };
+      
       // Options for the newState to be set
       const newState = {
         'break': (prevState) => ({ 
-          breakLength: prevState.breakLength + amt,
-          breakTimer: setTimer(prevState.breakTimer, amt),
-          
+          breakLength: isAtLimit(prevState.breakLength) // breakLength at limit? Don't update.
+            ? prevState.breakLength 
+            : prevState.breakLength + amt,
+          timer: prevState.isBreak // Break timer displayed? OK to change timer.
+            ? isAtLimit(prevState.breakLength) // breakLength at limit? Don't update timer.
+              ? prevState.timer 
+              : updateTimer(prevState.timer, amt)
+            : prevState.timer // Session timer displayed? Don't change timer.
         }), 
         'session': (prevState) => ({ 
-          sessionLength: prevState.sessionLength + amt,
-          sessionTimer: setTimer(prevState.sessionTimer, amt),
+          sessionLength: isAtLimit(prevState.sessionLength) // sessionLength at limit? Don't update.
+            ? prevState.sessionLength 
+            : prevState.sessionLength + amt,
+          timer: !prevState.isBreak // Session timer displayed? OK to change timer.
+            ? isAtLimit(prevState.sessionLength) // sessionLength at limit? Don't update timer.
+              ? prevState.timer 
+              : updateTimer(prevState.timer, amt)
+            : prevState.timer // Break timer displayed? Don't change timer.
         }) 
       };
       
-      // Set the state depending upon which button was clicked
-      this.setState(newState[setting]);
+      // Set the state depending upon which setting was clicked, then update timeLeft to match current timer.
+      this.setState(newState[setting], () => updateTimeLeft());
+    
+    // HANDLER FOR START/STOP
+    } else if (eleId === "start-stop") {
+      console.log('start-stop button clicked');
+
+    // HANDLER FOR RESET
     } else {
-      return;
+      console.log('reset button clicked');
     }
-  
-  }
+    
+  } // END handleClick()
 
   render() {
     return(
@@ -136,8 +149,6 @@ class PomodoroClock extends Component {
         <BreakSetting 
           handleClick={this.handleClick}
           breakLength={this.state.breakLength}
-          breakTimer={this.state.breakTimer} 
-          sessionTimer={this.state.sessionTimer}
         />
         <SessionSetting 
           handleClick={this.handleClick}
@@ -145,8 +156,7 @@ class PomodoroClock extends Component {
         />
         <Timer 
           handleClick={this.handleClick}
-          breakTimer={this.state.breakTimer} 
-          sessionTimer={this.state.sessionTimer}
+          timerLabel={this.state.timerLabel} 
           timeLeft={this.state.timeLeft}
         />
       </div>
