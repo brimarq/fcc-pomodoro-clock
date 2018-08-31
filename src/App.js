@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import './App.css';
-const defaultBreakMs = 5 * 60000, defaultSessionMs = 25 * 60000;
-let breakTimer = new Date(defaultBreakMs);
-let sessionTimer = new Date(defaultSessionMs);
-let timer = new Date(25 * 60000);
+// const defaultBreakMs = 5 * 60000, defaultSessionMs = 25 * 60000;
+// let breakTimer = new Date(defaultBreakMs);
+// let sessionTimer = new Date(defaultSessionMs);
+
+// New Date obj as timer, set to default sessionLength in ms (60000 ms = 1 m) past Unix Epoch time.
+// const timer = new Date(25 * 60000);
+const timer = new Date(0);
+
+const updateTimer = (timer, minutes, fromZero = false) => {
+  if (fromZero) {
+    timer.setTime(minutes * 60000);
+  } else {
+    timer.setTime(timer.getTime() + (minutes * 60000));
+  }
+  return timer;
+};
 
 const defaultClockState = {
   breakLength: 5,
   sessionLength: 25, 
-  // breakTimer: new Date(Date.UTC(1970, 0, 1, 0, 5, 0)),
-  // sessionTimer: new Date(Date.UTC(1970, 0, 1, 0, 25, 0)),
-  // breakTimer: breakTimer,
-  // sessionTimer: sessionTimer,
-  timer: timer,
+  timer: updateTimer(timer, 25, true),
   isBreak: false,
   isTimerRunning: false,
-  countdown: null,
   timerLabel: "Session",
   timeLeft: "25:00"
 };
@@ -82,14 +89,14 @@ class PomodoroClock extends Component {
       this.setState({timeLeft: mmss});
     };
 
-    const updateTimer = (timer, minutes, fromZero = false) => {
-      if (fromZero) {
-        timer.setTime(minutes * 60000);
-      } else {
-        timer.setTime(timer.getTime() + (minutes * 60000));
-      }
-      return timer;
-    };
+    // const updateTimer = (timer, minutes, fromZero = false) => {
+    //   if (fromZero) {
+    //     timer.setTime(minutes * 60000);
+    //   } else {
+    //     timer.setTime(timer.getTime() + (minutes * 60000));
+    //   }
+    //   return timer;
+    // };
 
     // HANDLER FOR BREAK/SESSION SETTINGS
     if (eleId.includes('-increment') || eleId.includes('-decrement')) {
@@ -139,8 +146,10 @@ class PomodoroClock extends Component {
     // HANDLER FOR RESET
     } else {
       console.log('reset button clicked');
+      // Weird. Timer won't update using the defaultClockState obj literal alone. But it does upon first load. WTF?!?
+      this.setState(defaultClockState, () => updateTimer(timer, 25, true));
     }
-    
+    console.log(timer);
   } // END handleClick()
 
   render() {
