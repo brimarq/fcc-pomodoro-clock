@@ -6,21 +6,21 @@ import './App.css';
 
 // New Date obj as timer, set to default sessionLength in ms (60000 ms = 1 m) past Unix Epoch time.
 // const timer = new Date(25 * 60000);
-const timer = new Date(0);
+// const timer = new Date(0);
 
-const updateTimer = (timer, minutes, fromZero = false) => {
-  if (fromZero) {
-    timer.setTime(minutes * 60000);
-  } else {
-    timer.setTime(timer.getTime() + (minutes * 60000));
-  }
-  return timer;
-};
+// const updateTimer = (timer, minutes, fromZero = false) => {
+//   if (fromZero) {
+//     timer.setTime(minutes * 60000);
+//   } else {
+//     timer.setTime(timer.getTime() + (minutes * 60000));
+//   }
+//   return timer;
+// };
 
 const defaultClockState = {
   breakLength: 5,
   sessionLength: 25, 
-  timer: updateTimer(timer, 25, true),
+  timer: 25 * 60,
   isBreak: false,
   isTimerRunning: false,
   timerLabel: "Session",
@@ -77,11 +77,22 @@ class PomodoroClock extends Component {
   handleClick(e) {
     const eleId = e.target.id;
 
+    // const updateTimeLeft = () => {
+    //   const timer = this.state.timer;
+    //   // For displaying 60 minutes as "60:00" in mm:ss format
+    //   const minutes = timer.getUTCHours() === 1 && timer.getUTCMinutes() === 0 ? 60 : timer.getUTCMinutes();
+    //   const seconds = timer.getUTCSeconds();
+    //   // Pad single-digit nums with 0 to keep to the mm:ss format.
+    //   const padZero = (num) => num < 10 ? '0' + num : num;
+    //   // mm:ss format string
+    //   const mmss = padZero(minutes) + ':' + padZero(seconds);
+    //   this.setState({timeLeft: mmss});
+    // };
+
     const updateTimeLeft = () => {
-      const timer = this.state.timer;
-      // For displaying 60 minutes as "60:00" in mm:ss format
-      const minutes = timer.getUTCHours() === 1 && timer.getUTCMinutes() === 0 ? 60 : timer.getUTCMinutes();
-      const seconds = timer.getUTCSeconds();
+      const timer = this.state.timer; // timer in seconds
+      const minutes = Math.floor(timer / 60);
+      const seconds = timer % 60;
       // Pad single-digit nums with 0 to keep to the mm:ss format.
       const padZero = (num) => num < 10 ? '0' + num : num;
       // mm:ss format string
@@ -121,7 +132,7 @@ class PomodoroClock extends Component {
           timer: prevState.isBreak // Break timer displayed? OK to change timer.
             ? isAtLimit(prevState.breakLength) // breakLength at limit? Don't update timer.
               ? prevState.timer 
-              : updateTimer(prevState.timer, amt)
+              : prevState.timer + amt * 60 // Update the timer in seconds
             : prevState.timer // Session timer displayed? Don't change timer.
         }), 
         'session': (prevState) => ({ 
@@ -131,7 +142,7 @@ class PomodoroClock extends Component {
           timer: !prevState.isBreak // Session timer displayed? OK to change timer.
             ? isAtLimit(prevState.sessionLength) // sessionLength at limit? Don't update timer.
               ? prevState.timer 
-              : updateTimer(prevState.timer, amt)
+              : prevState.timer + amt * 60 // Update the timer in seconds
             : prevState.timer // Break timer displayed? Don't change timer.
         }) 
       };
@@ -147,9 +158,9 @@ class PomodoroClock extends Component {
     } else {
       console.log('reset button clicked');
       // Weird. Timer won't update using the defaultClockState obj literal alone. But it does upon first load. WTF?!?
-      this.setState(defaultClockState, () => updateTimer(timer, 25, true));
+      this.setState(defaultClockState);
     }
-    console.log(timer);
+    
   } // END handleClick()
 
   render() {
