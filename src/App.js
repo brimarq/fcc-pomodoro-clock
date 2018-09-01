@@ -153,19 +153,32 @@ class PomodoroClock extends Component {
     // HANDLER FOR START/STOP
     } else if (eleId === "start-stop") {
       console.log('start-stop button clicked');
-      let timerID;
-      if (this.state.isTimerRunning) {
-        clearInterval(timerID); 
+
+      const stopTimer = () => {
+        clearInterval(this.timerID); 
         this.setState({isTimerRunning: false});
-      } else {
+      };
+
+      const startTimer = () => {
         const countdown = () => {
-          this.setState((prevState) => ({
-              isTimerRunning: true,
-              timer: prevState.timer - 1
-            }), () => updateTimeLeft() 
-          );
+          // If timer is at 0, stop countdown
+          if (!this.state.timer) {
+            stopTimer();
+          } else {
+            this.setState((prevState) => ({
+                isTimerRunning: true,
+                timer: prevState.timer - 1
+              }), () => updateTimeLeft() 
+            );
+          }
         };
-        timerID = setInterval(countdown, 1000);
+        this.timerID = setInterval(countdown, 1000);
+      };
+
+      if (this.state.isTimerRunning) {
+        stopTimer();
+      } else {
+        startTimer();
       }
     
     // HANDLER FOR RESET
