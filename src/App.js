@@ -77,18 +77,6 @@ class PomodoroClock extends Component {
   handleClick(e) {
     const eleId = e.target.id;
 
-    // const updateTimeLeft = () => {
-    //   const timer = this.state.timer;
-    //   // For displaying 60 minutes as "60:00" in mm:ss format
-    //   const minutes = timer.getUTCHours() === 1 && timer.getUTCMinutes() === 0 ? 60 : timer.getUTCMinutes();
-    //   const seconds = timer.getUTCSeconds();
-    //   // Pad single-digit nums with 0 to keep to the mm:ss format.
-    //   const padZero = (num) => num < 10 ? '0' + num : num;
-    //   // mm:ss format string
-    //   const mmss = padZero(minutes) + ':' + padZero(seconds);
-    //   this.setState({timeLeft: mmss});
-    // };
-
     const updateTimeLeft = () => {
       const timer = this.state.timer; // timer in seconds
       const minutes = Math.floor(timer / 60);
@@ -99,6 +87,7 @@ class PomodoroClock extends Component {
       const mmss = padZero(minutes) + ':' + padZero(seconds);
       this.setState({timeLeft: mmss});
     };
+
 
     // const updateTimer = (timer, minutes, fromZero = false) => {
     //   if (fromZero) {
@@ -152,8 +141,7 @@ class PomodoroClock extends Component {
     
     // HANDLER FOR START/STOP
     } else if (eleId === "start-stop") {
-      console.log('start-stop button clicked');
-
+      
       const stopTimer = () => {
         clearInterval(this.timerID); 
         this.setState({isTimerRunning: false});
@@ -161,9 +149,15 @@ class PomodoroClock extends Component {
 
       const startTimer = () => {
         const countdown = () => {
-          // If timer is at 0, stop countdown
+          // If timer is at 0, set the new timer and appropriate states. Otherwise, count down the current timer.
           if (!this.state.timer) {
-            stopTimer();
+            this.setState((prevState) => ({
+                isTimerRunning: true,
+                timer: prevState.isBreak ? prevState.sessionLength * 60 : prevState.breakLength * 60,
+                isBreak: !prevState.isBreak,
+                timerLabel: prevState.isBreak ? "Session" : "Break"
+              }), () => updateTimeLeft()
+            );
           } else {
             this.setState((prevState) => ({
                 isTimerRunning: true,
@@ -172,6 +166,7 @@ class PomodoroClock extends Component {
             );
           }
         };
+
         this.timerID = setInterval(countdown, 1000);
       };
 
@@ -183,7 +178,9 @@ class PomodoroClock extends Component {
     
     // HANDLER FOR RESET
     } else {
-      console.log('reset button clicked');
+      // Stop timer if clicked while timer is running.
+      if (this.timerID) clearInterval(this.timerID);
+      // Reset back to defaultClockState
       this.setState(defaultClockState);
     }
     
