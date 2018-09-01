@@ -1,21 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-// const defaultBreakMs = 5 * 60000, defaultSessionMs = 25 * 60000;
-// let breakTimer = new Date(defaultBreakMs);
-// let sessionTimer = new Date(defaultSessionMs);
-
-// New Date obj as timer, set to default sessionLength in ms (60000 ms = 1 m) past Unix Epoch time.
-// const timer = new Date(25 * 60000);
-// const timer = new Date(0);
-
-// const updateTimer = (timer, minutes, fromZero = false) => {
-//   if (fromZero) {
-//     timer.setTime(minutes * 60000);
-//   } else {
-//     timer.setTime(timer.getTime() + (minutes * 60000));
-//   }
-//   return timer;
-// };
 
 const defaultClockState = {
   breakLength: 5,
@@ -27,11 +11,11 @@ const defaultClockState = {
   timeLeft: "25:00"
 };
 
-
 class BreakSetting extends Component {
   render() {
     return(
-      <div id="break-setting">BreakSetting
+      <div id="break-setting">
+        <span id="break-label">Break Length</span>
         <button id="break-decrement" onClick={this.props.handleClick}>DOWN</button>
         <span id="break-length">{this.props.breakLength}</span>
         <button id="break-increment" onClick={this.props.handleClick}>UP</button>
@@ -44,7 +28,7 @@ class SessionSetting extends Component {
   render() {
     return(
       <div id="session-setting">
-        SessionSetting
+        <span id="session-label">Session Length</span>
         <button id="session-decrement" onClick={this.props.handleClick}>DOWN</button>
         <span id="session-length">{this.props.sessionLength}</span>
         <button id="session-increment" onClick={this.props.handleClick}>UP</button>
@@ -59,7 +43,7 @@ class Timer extends Component {
       <div id="timer">
         <div id="timer-label">{this.props.timerLabel}</div>
         <div id="time-left">{this.props.timeLeft}</div>
-        <button id="start-stop" onClick={this.props.handleClick}>START/STOP</button>
+        <button id="start_stop" onClick={this.props.handleClick}>START/STOP</button>
         <button id="reset" onClick={this.props.handleClick}>RESET</button>
       </div>
     );
@@ -70,6 +54,7 @@ class PomodoroClock extends Component {
   constructor(props) {
     super(props);
     this.state = defaultClockState;
+    this.audioElement = React.createRef();
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -87,16 +72,6 @@ class PomodoroClock extends Component {
       const mmss = padZero(minutes) + ':' + padZero(seconds);
       this.setState({timeLeft: mmss});
     };
-
-
-    // const updateTimer = (timer, minutes, fromZero = false) => {
-    //   if (fromZero) {
-    //     timer.setTime(minutes * 60000);
-    //   } else {
-    //     timer.setTime(timer.getTime() + (minutes * 60000));
-    //   }
-    //   return timer;
-    // };
 
     // HANDLER FOR BREAK/SESSION SETTINGS
     if (eleId.includes('-increment') || eleId.includes('-decrement')) {
@@ -140,7 +115,7 @@ class PomodoroClock extends Component {
       this.setState(newState[setting], () => updateTimeLeft());
     
     // HANDLER FOR START/STOP
-    } else if (eleId === "start-stop") {
+    } else if (eleId === "start_stop") {
       
       const stopTimer = () => {
         clearInterval(this.timerID); 
@@ -151,6 +126,7 @@ class PomodoroClock extends Component {
         const countdown = () => {
           // If timer is at 0, set the new timer and appropriate states. Otherwise, count down the current timer.
           if (!this.state.timer) {
+            this.audioElement.current.play();
             this.setState((prevState) => ({
                 isTimerRunning: true,
                 timer: prevState.isBreak ? prevState.sessionLength * 60 : prevState.breakLength * 60,
@@ -170,16 +146,16 @@ class PomodoroClock extends Component {
         this.timerID = setInterval(countdown, 1000);
       };
 
-      if (this.state.isTimerRunning) {
-        stopTimer();
-      } else {
-        startTimer();
-      }
-    
+      // Start/stop timer
+      this.state.isTimerRunning ? stopTimer() : startTimer();
+
     // HANDLER FOR RESET
     } else {
       // Stop timer if clicked while timer is running.
       if (this.timerID) clearInterval(this.timerID);
+      // Stop and reset the beep audio
+      this.audioElement.current.pause();
+      this.audioElement.current.currentTime = 0;
       // Reset back to defaultClockState
       this.setState(defaultClockState);
     }
@@ -202,6 +178,7 @@ class PomodoroClock extends Component {
           timerLabel={this.state.timerLabel} 
           timeLeft={this.state.timeLeft}
         />
+        <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg" ref={this.audioElement}></audio>
       </div>
     );
   }
