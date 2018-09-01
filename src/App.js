@@ -153,9 +153,11 @@ class PomodoroClock extends Component {
     // HANDLER FOR START/STOP
     } else if (eleId === "start-stop") {
       console.log('start-stop button clicked');
-
-      const handleTimer = () => {
-        let timerID;
+      let timerID;
+      if (this.state.isTimerRunning) {
+        clearInterval(timerID); 
+        this.setState({isTimerRunning: false});
+      } else {
         const countdown = () => {
           this.setState((prevState) => ({
               isTimerRunning: true,
@@ -163,28 +165,12 @@ class PomodoroClock extends Component {
             }), () => updateTimeLeft() 
           );
         };
-
-        const stopTimer = (id) => {
-          clearInterval(id); 
-          this.setState({isTimerRunning: false});
-        };
-
-        if (this.state.isTimerRunning) {
-          stopTimer(timerID);
-        } else {
-          timerID = setInterval(countdown, 1000);
-        }
-      };
-      
-      handleTimer();
-      
-
-      
-
+        timerID = setInterval(countdown, 1000);
+      }
+    
     // HANDLER FOR RESET
     } else {
       console.log('reset button clicked');
-      // Weird. Timer won't update using the defaultClockState obj literal alone. But it does upon first load. WTF?!?
       this.setState(defaultClockState);
     }
     
