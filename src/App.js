@@ -55,9 +55,36 @@ class PomodoroClock extends Component {
     super(props);
     this.state = defaultClockState;
     this.audioElement = React.createRef();
+    this.canvas = React.createRef();
     this.handleClick = this.handleClick.bind(this);
+    this.drawArc = this.drawArc.bind(this);
   }
 
+  // 0 deg is at right, and deg increase clockwise
+  drawArc(startAngleDeg, endAngleDeg) {
+    const toRadians = Math.PI / 180;
+    const startAngle = startAngleDeg * toRadians;
+    const endAngle = endAngleDeg * toRadians;
+    const canvas = this.canvas.current;
+    const ctx = canvas.getContext("2d");
+    // radius as half of height
+    let radius = canvas.height / 2;
+    // center x and y coordinates
+    ctx.translate(radius, radius);
+    // shrink radius to fit circle in canvas
+    radius = radius * 0.90;
+    ctx.beginPath();
+    // arc(x, y, radius, startAngle(in radians), endAngle(in radians) [counterClockwise])
+    ctx.arc(0, 0, radius, startAngle, endAngle);
+    // ctx.rotate(5 * Math.PI/180);
+    ctx.strokeStyle="lime";
+    ctx.lineWidth=20;
+    ctx.stroke();
+  };
+
+  componentDidMount() {
+    this.drawArc(90, 270);
+  }
 
   handleClick(e) {
     const eleId = e.target.id;
@@ -73,6 +100,22 @@ class PomodoroClock extends Component {
       this.setState({timeLeft: mmss});
     };
 
+    // const drawArc = () => {
+    //   const canvas = this.canvas.current;
+    //   const ctx = canvas.getContext("2d");
+    //   let radius = canvas.height / 2;
+    //   ctx.translate(radius, radius);
+    //   radius = radius * 0.90;
+    //   ctx.beginPath();
+    //   // arc(x, y, radius, startAngle, endAngle [counterClockwise])
+    //   ctx.arc(0, 0, radius, 0, 1.5 * Math.PI);
+    //   ctx.rotate(5 * Math.PI/180);
+    //   ctx.strokeStyle="lime";
+    //   ctx.lineWidth=20;
+    //   ctx.stroke();
+    // };
+
+    
     // HANDLER FOR BREAK/SESSION SETTINGS
     if (eleId.includes('-increment') || eleId.includes('-decrement')) {
       // Disallow setting changes if timer is running by returning early.
@@ -163,8 +206,10 @@ class PomodoroClock extends Component {
   } // END handleClick()
 
   render() {
+    
     return(
       <div id="pomodoro-clock">
+        <canvas id="canvas" width="200" height="200" style={{border: "1px solid #d3d3d3", backgroundColor: "rgba(0, 0, 0, 0)"}} ref={this.canvas}></canvas>
         <BreakSetting 
           handleClick={this.handleClick}
           breakLength={this.state.breakLength}
@@ -179,6 +224,7 @@ class PomodoroClock extends Component {
           timeLeft={this.state.timeLeft}
         />
         <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg" ref={this.audioElement}></audio>
+        
       </div>
     );
   }

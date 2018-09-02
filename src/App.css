@@ -27,3 +27,7 @@
 .App-footer {
   grid-area: footer;
 }
+
+canvas {
+  z-index: -100;
+}
