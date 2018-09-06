@@ -63,8 +63,12 @@ class PomodoroClock extends Component {
   // 0 deg is at right, and deg increase clockwise
   drawArc(startAngleDeg, endAngleDeg) {
     const toRadians = Math.PI / 180;
-    const startAngle = startAngleDeg * toRadians;
-    const endAngle = endAngleDeg * toRadians;
+    // Pseudo-rotate 0 deg to the top of the arc instead of at right.
+    const rotateZeroToTop = (deg) => {
+      return deg - 90 >= 0 ? deg - 90 : deg + 270;
+    };
+    const startAngle = rotateZeroToTop(startAngleDeg) * toRadians;
+    const endAngle = rotateZeroToTop(endAngleDeg) * toRadians;
     const canvas = this.canvas.current;
     const ctx = canvas.getContext("2d");
     // radius as half of height
@@ -80,10 +84,18 @@ class PomodoroClock extends Component {
     ctx.strokeStyle="lime";
     ctx.lineWidth=20;
     ctx.stroke();
+    ctx.beginPath();
+    // arc(x, y, radius, startAngle(in radians), endAngle(in radians) [counterClockwise])
+    ctx.arc(0, 0, radius, endAngle, startAngle);
+    ctx.strokeStyle="gray";
+    ctx.lineWidth=20;
+    ctx.stroke();
+
   };
 
   componentDidMount() {
-    this.drawArc(90, 270);
+    console.log(this.state.timer);
+    // this.drawArc(0, 359);
   }
 
   handleClick(e) {
@@ -184,6 +196,7 @@ class PomodoroClock extends Component {
               }), () => updateTimeLeft() 
             );
           }
+          this.drawArc(0, (this.state.timer % 60) * 6);
         };
 
         this.timerID = setInterval(countdown, 1000);
