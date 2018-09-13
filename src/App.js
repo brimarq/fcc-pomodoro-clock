@@ -57,45 +57,56 @@ class PomodoroClock extends Component {
     this.audioElement = React.createRef();
     this.canvas = React.createRef();
     this.handleClick = this.handleClick.bind(this);
-    this.drawArc = this.drawArc.bind(this);
+    this.drawRing = this.drawRing.bind(this);
   }
 
   // 0 deg is at right, and deg increase clockwise
-  drawArc(startAngleDeg, endAngleDeg) {
-    const toRadians = Math.PI / 180;
-    // Pseudo-rotate 0 deg to the top of the arc instead of at right.
-    const rotateZeroToTop = (deg) => {
-      return deg - 90 >= 0 ? deg - 90 : deg + 270;
-    };
-    const startAngle = rotateZeroToTop(startAngleDeg) * toRadians;
-    const endAngle = rotateZeroToTop(endAngleDeg) * toRadians;
+  drawRing(time) {
+    
     const canvas = this.canvas.current;
     const ctx = canvas.getContext("2d");
-    // radius as half of height
-    let radius = canvas.height / 2;
-    // center x and y coordinates
-    ctx.translate(radius, radius);
-    // shrink radius to fit circle in canvas
-    radius = radius * 0.90;
-    ctx.beginPath();
-    // arc(x, y, radius, startAngle(in radians), endAngle(in radians) [counterClockwise])
-    ctx.arc(0, 0, radius, startAngle, endAngle);
-    // ctx.rotate(5 * Math.PI/180);
-    ctx.strokeStyle="lime";
-    ctx.lineWidth=20;
-    ctx.stroke();
-    ctx.beginPath();
-    // arc(x, y, radius, startAngle(in radians), endAngle(in radians) [counterClockwise])
-    ctx.arc(0, 0, radius, endAngle, startAngle);
-    ctx.strokeStyle="gray";
-    ctx.lineWidth=20;
-    ctx.stroke();
+    
+    const rads = {
+      fullCircle: Math.PI * 2,
+      qtrCircle: Math.PI / 2,
+      // radians in 1/60 of a circle for seconds
+      perSec: Math.PI * 2 / 60,
+      // radians in 1ms
+      perMs: Math.PI * 2 / 60 * 0.001,
+      // Pseudo-rotate 0 rads to the top of the arc instead of at right.
+      rotate: function(radians) { return radians - this.qtrCircle; },
+    };
 
+    const circle = {
+      // Set circle origin coordinate to center of canvas
+      x: canvas.width / 2, 
+      y: canvas.height / 2, 
+      // radius as percentage of half of height
+      r: canvas.height / 2 * 0.90,
+    };
+
+    const startAngle = rads.rotate(0);
+    const endAngle = time = 0 ? rads.rotate(rads.fullCircle) : rads.rotate(time * rads.perSec);
+
+    const drawArc = (x, y, r, start, end, isCCW, lineW, color) => {
+      ctx.beginPath();
+      ctx.arc(x, y, r, start, end, isCCW);
+      ctx.lineWidth = lineW;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+    };
+
+    // Clear canvas first
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Time expired arc
+    drawArc(circle.x, circle.y, circle.r, 0, rads.fullCircle, true, 20, "#bbb");
+    // Time remaining arc
+    drawArc(circle.x, circle.y, circle.r, startAngle, endAngle, false, 20, "lime");
   };
 
   componentDidMount() {
     console.log(this.state.timer);
-    // this.drawArc(0, 359);
+    this.drawRing(60);
   }
 
   handleClick(e) {
@@ -109,24 +120,8 @@ class PomodoroClock extends Component {
       const padZero = (num) => num < 10 ? '0' + num : num;
       // mm:ss format string
       const mmss = padZero(minutes) + ':' + padZero(seconds);
-      this.setState({timeLeft: mmss});
+      this.setState({timeLeft: mmss}, this.drawRing(seconds));
     };
-
-    // const drawArc = () => {
-    //   const canvas = this.canvas.current;
-    //   const ctx = canvas.getContext("2d");
-    //   let radius = canvas.height / 2;
-    //   ctx.translate(radius, radius);
-    //   radius = radius * 0.90;
-    //   ctx.beginPath();
-    //   // arc(x, y, radius, startAngle, endAngle [counterClockwise])
-    //   ctx.arc(0, 0, radius, 0, 1.5 * Math.PI);
-    //   ctx.rotate(5 * Math.PI/180);
-    //   ctx.strokeStyle="lime";
-    //   ctx.lineWidth=20;
-    //   ctx.stroke();
-    // };
-
     
     // HANDLER FOR BREAK/SESSION SETTINGS
     if (eleId.includes('-increment') || eleId.includes('-decrement')) {
@@ -196,7 +191,7 @@ class PomodoroClock extends Component {
               }), () => updateTimeLeft() 
             );
           }
-          this.drawArc(0, (this.state.timer % 60) * 6);
+          
         };
 
         this.timerID = setInterval(countdown, 1000);
