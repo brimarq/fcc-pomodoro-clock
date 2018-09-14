@@ -83,10 +83,23 @@ class PomodoroClock extends Component {
       y: canvas.height / 2, 
       // radius as percentage of half of height
       r: canvas.height / 2 * 0.90,
+      rads: {
+        fullCircle: Math.PI * 2,
+        qtrCircle: Math.PI / 2,
+        // radians in 1/60 of a circle for seconds
+        perSec: Math.PI * 2 / 60,
+        // radians in 1ms
+        perMs: Math.PI * 2 / 60 * 0.001,
+      },
+      rotate: function(radians) { return radians - this.rads.qtrCircle; },
+      get start() {return this.rotate(0);},
+      get end() {return !time ? this.rotate(this.rads.fullCircle) : this.rotate(time * this.rads.perSec);}, 
     };
+    
+    
 
     const startAngle = rads.rotate(0);
-    const endAngle = time = 0 ? rads.rotate(rads.fullCircle) : rads.rotate(time * rads.perSec);
+    const endAngle = !time ? rads.rotate(rads.fullCircle) : rads.rotate(time * rads.perSec);
 
     const drawArc = (x, y, r, start, end, isCCW, lineW, color) => {
       ctx.beginPath();
@@ -94,19 +107,28 @@ class PomodoroClock extends Component {
       ctx.lineWidth = lineW;
       ctx.strokeStyle = color;
       ctx.stroke();
+      console.log(start + " (drawArc start)");
+      console.log(end + " (drawArc end)");
     };
 
     // Clear canvas first
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Time expired arc
-    drawArc(circle.x, circle.y, circle.r, 0, rads.fullCircle, true, 20, "#bbb");
+    //drawArc(circle.x, circle.y, circle.r, startAngle, endAngle, true, 20, "#bbb");
+    drawArc(circle.x, circle.y, circle.r, circle.start, circle.end, true, 20, "#bbb");
     // Time remaining arc
-    drawArc(circle.x, circle.y, circle.r, startAngle, endAngle, false, 20, "lime");
-  };
+    //drawArc(circle.x, circle.y, circle.r, startAngle, endAngle, false, 20, "lime");
+    drawArc(circle.x, circle.y, circle.r, circle.start, circle.end, false, 20, "lime");
+    console.log(circle.end + " (circle.end)");
+    console.log(endAngle + " (endAngle)");
+    
+  } // END drawRing()
+
+  
 
   componentDidMount() {
     console.log(this.state.timer);
-    this.drawRing(60);
+    this.drawRing(this.state.timer % 60);
   }
 
   handleClick(e) {
@@ -174,6 +196,31 @@ class PomodoroClock extends Component {
 
       const startTimer = () => {
         const countdown = () => {
+
+          const animateRing = () => {
+            const animationLength = 1000; // time in ms
+            let startTime = -1;
+        
+            const doAnimation = (timestamp) => {
+              let progress = 0;
+              
+              if (startTime < 0) {
+                // Set startTime as the beginning of the actual animation call
+                startTime = timestamp;
+              } else {
+                progress = timestamp - startTime;
+              }
+
+              this.drawRing(); 
+
+              if (progress < animationLength) {
+                this.reqID = requestAnimationFrame(doAnimation);
+              }
+            };
+
+            this.reqID = requestAnimationFrame(doAnimation);
+          };
+          
           // If timer is at 0, set the new timer and appropriate states. Otherwise, count down the current timer.
           if (!this.state.timer) {
             this.audioElement.current.play();
