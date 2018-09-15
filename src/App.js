@@ -65,17 +65,6 @@ class PomodoroClock extends Component {
     
     const canvas = this.canvas.current;
     const ctx = canvas.getContext("2d");
-    
-    const rads = {
-      fullCircle: Math.PI * 2,
-      qtrCircle: Math.PI / 2,
-      // radians in 1/60 of a circle for seconds
-      perSec: Math.PI * 2 / 60,
-      // radians in 1ms
-      perMs: Math.PI * 2 / 60 * 0.001,
-      // Pseudo-rotate 0 rads to the top of the arc instead of at right.
-      rotate: function(radians) { return radians - this.qtrCircle; },
-    };
 
     const drawRing = (time) => {
 
@@ -138,11 +127,9 @@ class PomodoroClock extends Component {
           progress = timestamp - startTime;
         }
 
-        
         // Draw ring with end angle as time - progress
         drawRing(time - progress); 
 
-        
         // Only animate if the progress (in ms) is less than 1 second.
         if (progress < animationLength) {
           this.AnimReqID = requestAnimationFrame(doAnimation);
@@ -159,8 +146,6 @@ class PomodoroClock extends Component {
     }
 
   } // END drawRing()
-
-  
 
   componentDidMount() {
     console.log(this.state.timer);
