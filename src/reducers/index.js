@@ -7,12 +7,10 @@ const initState = {
   sessionLength: 25 * 60000,
   isBreak: false,
   isRunning: false,
-  timer: 25 * 60000, 
-  _isOn: false,
-  _time: 0
+  timer: 25 * 60000,
 };
 
-export default function reducer(state = initState, action) {
+const reducer = (state = initState, action) => {
   switch (action.type) {
     case SET_BREAK_LENGTH:
       return {
@@ -58,3 +56,5 @@ export default function reducer(state = initState, action) {
       return state;
   }
 };
+
+export default reducer;
