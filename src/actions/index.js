@@ -11,19 +11,19 @@ export const setSessionLength = (length) => ({
   sessionLength: length
 });
 
-export const setTimer = (time) => ({
-  type: SET_TIMER,
-  timer: time
-});
+// export const setTimer = (time) => ({
+//   type: SET_TIMER,
+//   timer: time
+// });
 
 export const resetTimer = () => ({
   type: RESET_TIMER
 });
 
-export const setIsBreak = (bool) => ({
-  type: SET_IS_BREAK,
-  isBreak: bool
-});
+// export const setIsBreak = (bool) => ({
+//   type: SET_IS_BREAK,
+//   isBreak: bool
+// });
 
 export const setIsRunning = (bool) => ({
   type: SET_IS_RUNNING,
