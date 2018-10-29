@@ -15,6 +15,7 @@ const TimerSetting = ({setting}) => {
     const amt = e.target.id.includes('-increment') ? msPerMin : -msPerMin;
     const newLength = length + amt;
     const action = (payload) => setting === "break" ? setBreakLength(payload) : setSessionLength(payload);
+    console.log(newLength);
 
     if (newLength > 60 * msPerMin || newLength < msPerMin ) return;
     return store.dispatch(action(newLength));
