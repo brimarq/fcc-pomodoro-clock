@@ -90,7 +90,7 @@ const Timer = () => {
       <div id="timer-label">{timerLabel}</div>
       <TimeLeft />
       <button id="start_stop" onClick={handleClick}>{btnToggleLabel}</button>
-      <button id="reset" onClick={handleClick}>RESET</button>
+      <button id="reset" disabled={isRunning} onClick={handleClick}>RESET</button>
       <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg"></audio>
     </div>
   );
