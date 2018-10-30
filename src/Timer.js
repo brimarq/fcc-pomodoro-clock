@@ -1,11 +1,12 @@
 import React from 'react';
 import store from "./store";
 import "./Timer.css";
+import TimeRing from "./TimeRing";
 import TimeLeft from "./TimeLeft";
 import { tickTimer, toggleTimer, setIsRunning, resetTimer } from "./actions";
 
 const Timer = () => {
-  const { isBreak, isRunning, timer } = store.getState();
+  const { isBreak, isRunning, timer, breakLength, sessionLength } = store.getState();
   
   const timerLabel = isBreak ? "Break" : "Session";
   const btnToggleLabel = isRunning ? "STOP" : "START";
@@ -85,6 +86,7 @@ const Timer = () => {
   
   return (
     <div id="timer">
+      <TimeRing msLeft={timer} msTotal={isBreak ? breakLength : sessionLength} />
       <div id="timer-label">{timerLabel}</div>
       <TimeLeft />
       <button id="start_stop" onClick={handleClick}>{btnToggleLabel}</button>
