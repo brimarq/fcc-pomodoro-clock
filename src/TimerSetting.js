@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import store from "./store";
 import "./TimerSetting.css";
 import { setBreakLength, setSessionLength } from "./actions";

@@ -32,7 +32,7 @@ const reducer = (state = initState, action) => {
     case TICK_TIMER:
       return {
         ...state,
-        timer: action.timer,
+        timer: action.timer
       };
     // case TICK_TIMER:
     //   return {

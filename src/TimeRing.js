@@ -6,9 +6,7 @@ class TimeRing extends Component {
   constructor(props) {
     super(props);
     this.canvas = React.createRef();
-    this.beep = React.createRef();
     this.drawRing = this.drawRing.bind(this);
-    this.playBeep = this.playBeep.bind(this);
   }
 
   componentDidMount() {
@@ -17,17 +15,16 @@ class TimeRing extends Component {
 
   componentDidUpdate() {
     this.drawRing(this.props.msLeft);
-    this.playBeep();
-  }
-
-  playBeep() {
-    if (!this.props.msLeft) this.beep.current.play();
   }
 
   drawRing(time) {
     const canvas = this.canvas.current;
     const ctx = canvas.getContext("2d");
     const msTotal = this.props.msTotal;
+
+    const grd = ctx.createLinearGradient(0,0,170,0);
+    grd.addColorStop(0,"blue");
+    grd.addColorStop(1,"white");
     
 
     const arc = {
@@ -44,13 +41,15 @@ class TimeRing extends Component {
         // radians in 1ms
         perMs: Math.PI * 2 / 60 * 0.001,
         timeLeft: Math.PI * 2 / msTotal * time,
-        secHand: Math.PI * 2 / 60000 * (time % 60000)
+        secHand: Math.PI * 2 / 60000 * (time % 60000),
+        sec: Math.PI * 2 / 1000 * (time % 1000),
       },
       color: "hsl(" + (130 / msTotal * time) + ", 100%, 50%)",
       rotate: function(radians) { return radians - this.rads.qtrCircle; },
       get start() {return this.rotate(0);},
       get end() {return !time ? this.rotate(this.rads.fullCircle) : this.rotate(this.rads.timeLeft);}, 
       get endSecHand() {return !this.rads.secHand ? this.rotate(this.rads.fullCircle) : this.rotate(this.rads.secHand);},
+      get endSec() {return !this.rads.secHand ? this.rotate(this.rads.fullCircle) : this.rotate(this.rads.sec);},
     };
 
     const drawArc = (x, y, r, start, end, isCCW, lineW, color) => {
@@ -80,6 +79,11 @@ class TimeRing extends Component {
     // Time remaining arc (ms/min)
     drawArc(arc.x, arc.y, arc.r * 0.75, arc.start, arc.endSecHand, false, 20, "orange");
 
+    // Time expired arc (ms/min)
+    drawArc(arc.x, arc.y, arc.r * 0.5, arc.endSec + 0.1, arc.endSec -0.1, true, 10, "#bbb");
+    // Time remaining arc (ms/min)
+    //drawArc(arc.x, arc.y, arc.r * 0.5, arc.start, arc.endSec, false, 10, "blue");
+
     // drawText(this.state.timeLeft);
   };
 
@@ -87,7 +91,6 @@ class TimeRing extends Component {
     return (
       <div id="time-ring">
         <canvas id="canvas" width="200" height="200" style={{border: "1px solid #d3d3d3", backgroundColor: "rgba(0, 0, 0, 0)"}} ref={this.canvas}></canvas>
-        <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg" ref={this.beep}></audio>
       </div>
     );
   }

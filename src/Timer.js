@@ -10,13 +10,13 @@ const Timer = () => {
   
   const timerLabel = isBreak ? "Break" : "Session";
   const btnToggleLabel = isRunning ? "STOP" : "START";
-  
+  let audioElement = React.createRef();
 
   const handleTimer = () => {
-
+    
     const animateTimer = () => {
       //const animationLength = 10000; // time in ms
-      
+      const beep = audioElement.current;
       // Set clock here to track elapsed time
       let clock = timer;
       let startTime = -1;
@@ -24,7 +24,7 @@ const Timer = () => {
       const doAnimation = (timestamp) => {
         let progress = 0;
         let countdown;
-
+        
         if (startTime < 0) {
           // Set startTime as the beginning of the actual animation call
           startTime = timestamp;
@@ -34,11 +34,12 @@ const Timer = () => {
           progress = Math.floor(timestamp - startTime);
           countdown = clock - progress;
           
+          
           // If countdown < 0, hold timer at 0 for 1 second, otherwise tickTimer
           if (countdown < 0) {
             console.log('countdown: ' + countdown);
             store.dispatch(tickTimer(0));
-
+            beep.play();
             // after 1 sec hold at 0, toggle the timer, set new startTime and clock from new timer
             if (countdown < -1000) {
               store.dispatch(toggleTimer());
@@ -47,19 +48,10 @@ const Timer = () => {
             }
             
           } else {
+            // Dispatch the new time to the timer
             store.dispatch(tickTimer(countdown));
           }
-         
         } 
-
-        //store.dispatch(tickTimer(progress));
-        // Draw ring with end angle as time - progress
-        //drawRing(time - progress); 
-
-        // Only animate if the progress (in ms) is less than 1 second.
-        // if (progress < animationLength) {
-        //   window.animReqID = requestAnimationFrame(doAnimation);
-        // }
         window.animReqID = requestAnimationFrame(doAnimation);
       };
 
@@ -72,26 +64,33 @@ const Timer = () => {
 
   const handleClick = (e) => {
     const clickedId = e.target.id;
+    const beep = audioElement.current;
     const toggle = (bool) => {
       store.dispatch(setIsRunning(bool));
       handleTimer();
+      
+      //console.log(beep.current.paused)
     };
     const reset = () => {
+      if (isRunning) cancelAnimationFrame(window.animReqID);
+      beep.pause();
+      beep.currentTime = 0;
       store.dispatch(resetTimer());
     };
     clickedId === "reset" ? reset() : toggle(!isRunning);
-    
   };
 
+  
   
   return (
     <div id="timer">
       <TimeRing msLeft={timer} msTotal={isBreak ? breakLength : sessionLength} />
+      
       <div id="timer-label">{timerLabel}</div>
       <TimeLeft />
       <button id="start_stop" type="button" onClick={handleClick}>{btnToggleLabel}</button>
-      <button id="reset" type="button" disabled={isRunning} onClick={handleClick}>RESET</button>
-      <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg"></audio>
+      <button id="reset" type="button" onClick={handleClick}>RESET</button>
+      <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg" ref={audioElement}></audio>
     </div>
   );
 };

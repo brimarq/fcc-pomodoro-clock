@@ -1,22 +1,8 @@
 // import React, { Component } from 'react';
 import React from 'react';
 import './App.css';
-import TimerSetting from "./TimerSetting"
-import Timer from "./Timer"
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">Header</header>
-//         <main className="App-main">
-//         Main
-//         </main>
-//         <footer className="App-footer">Footer</footer>
-//       </div>
-//     );
-//   }
-// }
+import TimerSetting from "./TimerSetting";
+import Timer from "./Timer";
 
 const App = () => {
   return (
