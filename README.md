@@ -2,7 +2,6 @@
 
 https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-pomodoro-clock  
 
-NOTE: This branch works fine; but, because it uses `requestAnimationFrame` for the timer, it fails the fCC Test Suite which looks for `setTimeout` or `setInterval` to be controlling the timer.
 
 ## [Working CodePen Demo](https://codepen.io/brimarq/full/aadZRR/)
 
