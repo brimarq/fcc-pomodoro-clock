@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import store from "./store";
 import "./TimeRing.css";
+import anime from 'animejs'
 
 class TimeRing extends Component {
   constructor(props) {

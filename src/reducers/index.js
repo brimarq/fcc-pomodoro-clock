@@ -3,11 +3,11 @@ import { SET_BREAK_LENGTH, SET_SESSION_LENGTH, SET_IS_RUNNING, RESET_TIMER, TOGG
 /**** REDUCERS ****/
 
 const initState = {
-  breakLength: 5 * 60000,
-  sessionLength: 25 * 60000,
+  breakLength: 5,
+  sessionLength: 25,
   isBreak: false,
   isRunning: false,
-  timer: 25 * 60000,
+  timer: 25 * 60,
 };
 
 const reducer = (state = initState, action) => {
@@ -16,13 +16,13 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         breakLength: action.breakLength,
-        timer: state.isBreak ? action.breakLength : state.timer
+        timer: state.isBreak ? action.breakLength * 60 : state.timer
       };
     case SET_SESSION_LENGTH:
       return {
         ...state,
         sessionLength: action.sessionLength,
-        timer: state.isBreak ? state.timer : action.sessionLength
+        timer: state.isBreak ? state.timer : action.sessionLength * 60
       };
     case SET_IS_RUNNING:
       return {
@@ -34,18 +34,11 @@ const reducer = (state = initState, action) => {
         ...state,
         timer: action.timer
       };
-    // case TICK_TIMER:
-    //   return {
-    //     ...state,
-    //     timer: action.timer < 0 ? state.isBreak ? state.sessionLength : state.breakLength : action.timer,
-    //     isBreak: action.timer < 0 ? !state.isBreak : state.isBreak
-    //   };
-
     case TOGGLE_TIMER:
       return {
         ...state,
         isBreak: !state.isBreak,
-        timer: state.isBreak ? state.sessionLength : state.breakLength
+        timer: state.isBreak ? state.sessionLength * 60 : state.breakLength * 60
       };
     case RESET_TIMER:
       return {

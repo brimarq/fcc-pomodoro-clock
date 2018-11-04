@@ -13,53 +13,28 @@ const Timer = () => {
   let audioElement = React.createRef();
 
   const handleTimer = () => {
-    
-    const animateTimer = () => {
-      //const animationLength = 10000; // time in ms
-      const beep = audioElement.current;
-      // Set clock here to track elapsed time
-      let clock = timer;
-      let startTime = -1;
+    const beep = audioElement.current;
 
-      const doAnimation = (timestamp) => {
-        let progress = 0;
-        let countdown;
-        
-        if (startTime < 0) {
-          // Set startTime as the beginning of the actual animation call
-          startTime = timestamp;
-          
+    const startTimer = () => {
+      
+      const countdown = () => {
+        const time = store.getState().timer;
+        const newTime = time - 1;
+        if (!time) {
+          beep.play();
+          store.dispatch(toggleTimer());
         } else {
-          // progress in ms from startTime
-          progress = Math.floor(timestamp - startTime);
-          countdown = clock - progress;
+          store.dispatch(tickTimer(newTime));
           
-          
-          // If countdown < 0, hold timer at 0 for 1 second, otherwise tickTimer
-          if (countdown < 0) {
-            console.log('countdown: ' + countdown);
-            store.dispatch(tickTimer(0));
-            beep.play();
-            // after 1 sec hold at 0, toggle the timer, set new startTime and clock from new timer
-            if (countdown < -1000) {
-              store.dispatch(toggleTimer());
-              startTime = -1;
-              clock = store.getState().timer;
-            }
-            
-          } else {
-            // Dispatch the new time to the timer
-            store.dispatch(tickTimer(countdown));
-          }
-        } 
-        window.animReqID = requestAnimationFrame(doAnimation);
+        }
+        
+        if (!newTime) beep.play();
       };
 
-      window.animReqID = requestAnimationFrame(doAnimation);
+      window.timerID = setInterval(countdown, 1000);
     };
 
-    isRunning ? cancelAnimationFrame(window.animReqID) : animateTimer();
-
+    isRunning ? clearInterval(window.timerID) : startTimer();
   };
 
   const handleClick = (e) => {
@@ -68,11 +43,10 @@ const Timer = () => {
     const toggle = (bool) => {
       store.dispatch(setIsRunning(bool));
       handleTimer();
-      
-      //console.log(beep.current.paused)
+
     };
     const reset = () => {
-      if (isRunning) cancelAnimationFrame(window.animReqID);
+      if (isRunning) clearInterval(window.timerID);
       beep.pause();
       beep.currentTime = 0;
       store.dispatch(resetTimer());

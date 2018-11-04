@@ -8,10 +8,10 @@ const TimeLeft = () => {
   const { timer } = store.getState();
   //const timer = isBreak ? breakLength : sessionLength;
   const mmssFormat = (time) => {
-    const timeInSec = Math.ceil(time / 1000);
+    //const timeInSec = Math.ceil(time / 1000);
     const padZero = (n) => n < 10 ? '0' + n : n;
-    const mm = padZero(Math.floor(timeInSec / 60));
-    const ss = padZero(timeInSec % 60);
+    const mm = padZero(Math.floor(time / 60));
+    const ss = padZero(time % 60);
     return mm + ':' + ss;
   };
 
