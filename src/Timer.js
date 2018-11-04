@@ -58,7 +58,7 @@ const Timer = () => {
   
   return (
     <div id="timer">
-      <TimeRing msLeft={timer} msTotal={isBreak ? breakLength : sessionLength} />
+      <TimeRing remTime={timer} totalTime={isBreak ? breakLength * 60 : sessionLength * 60} />
       
       <div id="timer-label">{timerLabel}</div>
       <TimeLeft />

@@ -11,17 +11,17 @@ class TimeRing extends Component {
   }
 
   componentDidMount() {
-    this.drawRing(this.props.msLeft);
+    this.drawRing(this.props.remTime);
   }
 
   componentDidUpdate() {
-    this.drawRing(this.props.msLeft);
+    this.drawRing(this.props.remTime);
   }
 
   drawRing(time) {
     const canvas = this.canvas.current;
     const ctx = canvas.getContext("2d");
-    const msTotal = this.props.msTotal;
+    const totalTime = this.props.totalTime;
 
     const grd = ctx.createLinearGradient(0,0,170,0);
     grd.addColorStop(0,"blue");
@@ -41,11 +41,11 @@ class TimeRing extends Component {
         perSec: Math.PI * 2 / 60,
         // radians in 1ms
         perMs: Math.PI * 2 / 60 * 0.001,
-        timeLeft: Math.PI * 2 / msTotal * time,
-        secHand: Math.PI * 2 / 60000 * (time % 60000),
+        timeLeft: Math.PI * 2 / totalTime * time,
+        secHand: Math.PI * 2 / 60 * (time % 60),
         sec: Math.PI * 2 / 1000 * (time % 1000),
       },
-      color: "hsl(" + (130 / msTotal * time) + ", 100%, 50%)",
+      color: "hsl(" + (130 / totalTime * time) + ", 100%, 50%)",
       rotate: function(radians) { return radians - this.rads.qtrCircle; },
       get start() {return this.rotate(0);},
       get end() {return !time ? this.rotate(this.rads.fullCircle) : this.rotate(this.rads.timeLeft);}, 
