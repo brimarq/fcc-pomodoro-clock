@@ -1,97 +1,151 @@
-import React, { Component } from 'react';
-// import store from "./store";
+import React, { PureComponent } from 'react';
 import "./TimeRing.css";
-import anime from 'animejs'
+// import store from "./store";
+// import anime from 'animejs'
 
-class TimeRing extends Component {
+class TimeRing extends PureComponent {
   constructor(props) {
     super(props);
     this.canvas = React.createRef();
-    this.drawRing = this.drawRing.bind(this);
+    this.drawTimeRing = this.drawTimeRing.bind(this);
   }
 
   componentDidMount() {
-    this.drawRing(this.props.remTime);
+    this.drawTimeRing();
   }
 
   componentDidUpdate() {
-    this.drawRing(this.props.remTime);
+    this.drawTimeRing();
   }
 
-  drawRing(time) {
-    const canvas = this.canvas.current;
-    const ctx = canvas.getContext("2d");
-    const totalTime = this.props.totalTime;
+  drawTimeRing() {
+    const { isBreak, isRunning, breakLength, sessionLength, timer } = this.props;
+    // const totalTime = isBreak ? breakLength * 60 : sessionLength * 60;
+    // const timeNow = timer;
+    const timerLabel = isBreak ? "Break" : "Session";
+    const mmss = mmssFormat(timer);
 
-    const grd = ctx.createLinearGradient(0,0,170,0);
-    grd.addColorStop(0,"blue");
-    grd.addColorStop(1,"white");
+    function mmssFormat(time) {
+      //const timeInSec = Math.ceil(time / 1000);
+      const padZero = (n) => n < 10 ? '0' + n : n;
+      const mm = padZero(Math.floor(time / 60));
+      const ss = padZero(time % 60);
+      return mm + ':' + ss;
+    }
     
+    // draw fn w/default
+    const draw = (timeNow = timer * 1000) => {
+      const totalTime = isBreak ? breakLength * 60000 : sessionLength * 60000;
+      const canvas = this.canvas.current;
+      const ctx = canvas.getContext("2d");
+      // const hue = 130 / totalTime * timeNow;
+     
+      // const hue = isBreak ? 120 + (80 / totalTime * timeNow) : 200 - (80 / totalTime * timeNow);
+      const hue = isBreak ? 120 + (80 / totalTime * timeNow) : 200 - (80 / totalTime * timeNow);
+      // hsl(200, 100%, 60%) blue
+      // hsl(120, 100%, 60%) green
+      
+      const rads = {
+        full: Math.PI * 2,
+        qtr: Math.PI / 2,
+        perSec: Math.PI * 2 / totalTime,
+      };
 
-    const arc = {
-      // Set circle origin coordinate to center of canvas
-      x: canvas.width / 2, 
-      y: canvas.height / 2, 
-      // radius as percentage of half of height
-      r: canvas.height / 2 * 0.90,
-      rads: {
-        fullCircle: Math.PI * 2,
-        qtrCircle: Math.PI / 2,
-        // radians in 1/60 of a circle for seconds
-        perSec: Math.PI * 2 / 60,
-        // radians in 1ms
-        perMs: Math.PI * 2 / 60 * 0.001,
-        timeLeft: Math.PI * 2 / totalTime * time,
-        secHand: Math.PI * 2 / 60 * (time % 60),
-        sec: Math.PI * 2 / 1000 * (time % 1000),
-      },
-      color: "hsl(" + (130 / totalTime * time) + ", 100%, 50%)",
-      rotate: function(radians) { return radians - this.rads.qtrCircle; },
-      get start() {return this.rotate(0);},
-      get end() {return !time ? this.rotate(this.rads.fullCircle) : this.rotate(this.rads.timeLeft);}, 
-      get endSecHand() {return !this.rads.secHand ? this.rotate(this.rads.fullCircle) : this.rotate(this.rads.secHand);},
-      get endSec() {return !this.rads.secHand ? this.rotate(this.rads.fullCircle) : this.rotate(this.rads.sec);},
+      const circ = {
+        x: canvas.width / 2, 
+        y: canvas.height / 2,
+        r: canvas.height / 2 * 0.90,
+        lineW: 15,
+        arc: {
+          ccw1: false,
+          ccw2: true,
+          clr1: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
+          clr2: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
+          get start() { return rotate(0); },
+          get end1() { return isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
+          // 2nd arc full circle when timer runs out
+          get end2() { return !timeNow ? rotate(rads.full) : isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
+        },
+      }
+
+      
+
+      function rotate(radians) { return radians - rads.qtr; }
+      function drawArc(x, y, r, start, end, isCCW, lineW, color) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, start, end, isCCW);
+        ctx.lineWidth = lineW;
+        ctx.strokeStyle = color;
+        ctx.stroke();
+      }
+
+      function drawText(label, time) {
+        
+        ctx.fillStyle = "hsl(" + hue + ", 100%, 50%)";
+        ctx.textAlign = 'center';
+        ctx.font = '1em Arial, Helvetica, sans-serif';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, circ.x, circ.r * 2 /3);
+        ctx.font = '2em Arial, Helvetica, sans-serif';
+        ctx.fillText(time, circ.x, circ.y);
+      }
+
+      function drawRing() {
+        // Clear canvas first
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Time expired arc
+        drawArc(circ.x, circ.y, circ.r, circ.arc.start, circ.arc.end2, circ.arc.ccw2, circ.lineW, circ.arc.clr2);
+        // Time remaining arc
+        drawArc(circ.x, circ.y, circ.r, circ.arc.start, circ.arc.end1, circ.arc.ccw1, circ.lineW, circ.arc.clr1);
+        drawText(timerLabel, mmss);
+      }
+
+      drawRing();
     };
 
-    const drawArc = (x, y, r, start, end, isCCW, lineW, color) => {
-      ctx.beginPath();
-      ctx.arc(x, y, r, start, end, isCCW);
-      ctx.lineWidth = lineW;
-      ctx.strokeStyle = color;
-      ctx.stroke();
+    const animateDraw = (time = timer * 1000) => {
+      
+      const animationLength = 1000; // time in ms
+      let startTime = -1;
+      
+      const doAnimation = (timestamp) => {
+        let progress = 0;
+        let countdown;
+        
+        if (startTime < 0) {
+          // Set startTime as the beginning of the actual animation call
+          startTime = timestamp;
+        }
+
+        // progress in ms from startTime
+        progress = timestamp - startTime;
+        countdown = time - progress;
+
+        // Don't animate if countdown goes below zero
+        if (countdown >= 0) draw(countdown);
+        
+        // Only animate if the progress (in ms) is less than 1 second.
+        if (progress < animationLength) {
+          this.animID = requestAnimationFrame(doAnimation);
+        }
+      };
+  
+      this.animID = requestAnimationFrame(doAnimation);
     };
 
-    // const drawText = (text) => {
-    //   ctx.font = '2em Arial, Helvetica, sans-serif';
-    //   ctx.textAlign = 'center';
-    //   ctx.textBaseline = 'middle';
-    //   ctx.fillText(text, arc.x, arc.y);
-    // };
-
-    // Clear canvas first
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Time expired arc (total time)
-    drawArc(arc.x, arc.y, arc.r, arc.start, arc.end, true, 20, "#bbb");
-    // Time remaining arc (total time)
-    drawArc(arc.x, arc.y, arc.r, arc.start, arc.end, false, 20, arc.color);
-
-    // Time expired arc (ms/min)
-    drawArc(arc.x, arc.y, arc.r * 0.75, arc.start, arc.endSecHand, true, 20, "#bbb");
-    // Time remaining arc (ms/min)
-    drawArc(arc.x, arc.y, arc.r * 0.75, arc.start, arc.endSecHand, false, 20, "orange");
-
-    // Time expired arc (ms/min)
-    drawArc(arc.x, arc.y, arc.r * 0.5, arc.endSec + 0.1, arc.endSec -0.1, true, 10, "#bbb");
-    // Time remaining arc (ms/min)
-    //drawArc(arc.x, arc.y, arc.r * 0.5, arc.start, arc.endSec, false, 10, "blue");
-
-    // drawText(this.state.timeLeft);
-  };
+    if (isRunning) {
+      animateDraw();
+    } else {
+      cancelAnimationFrame(this.animID);
+      draw();
+    }
+  }
 
   render() {
+
     return (
-      <div id="time-ring">
-        <canvas id="canvas" width="200" height="200" style={{border: "1px solid #d3d3d3", backgroundColor: "rgba(0, 0, 0, 0)"}} ref={this.canvas}></canvas>
+      <div id="time-ring-container">
+        <canvas width="160" height="160" ref={this.canvas} style={{border: "1px solid #acacac"}} />
       </div>
     );
   }
