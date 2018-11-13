@@ -41,7 +41,16 @@ class TimeRing extends PureComponent {
       // const hue = 130 / totalTime * timeNow;
      
       // const hue = isBreak ? 120 + (80 / totalTime * timeNow) : 200 - (80 / totalTime * timeNow);
-      const hue = isBreak ? 120 + (80 / totalTime * timeNow) : 200 - (80 / totalTime * timeNow);
+
+      // const hue = isBreak ? 120 + (80 / totalTime * timeNow) : 200 - (80 / totalTime * timeNow);
+
+      const hue = timeNow > 10000 
+        ? isBreak ? 200 : 120 
+        : isBreak ? 120 + (80 / 10000 * timeNow) : 200 - (80 / 10000 * timeNow);
+      
+      
+
+
       // hsl(200, 100%, 60%) blue
       // hsl(120, 100%, 60%) green
       
@@ -59,12 +68,16 @@ class TimeRing extends PureComponent {
         arc: {
           ccw1: false,
           ccw2: true,
-          clr1: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
-          clr2: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
+          // clr1: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
+          // clr2: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
+          clr1: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
+          clr2: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
           get start() { return rotate(0); },
-          get end1() { return isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
+          // get end1() { return isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
           // 2nd arc full circle when timer runs out
-          get end2() { return !timeNow ? rotate(rads.full) : isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
+          // get end2() { return !timeNow ? rotate(rads.full) : isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
+          get end1() { return rotate(timeNow * rads.perSec);},
+          get end2() { return !timeNow ? rotate(rads.full) : rotate(timeNow * rads.perSec);},
         },
       }
 
