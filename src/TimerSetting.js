@@ -25,9 +25,9 @@ class TimerSetting extends PureComponent {
     return (
       <div id={setting + "-setting"}>
         <span id={setting + "-label"}>{label}</span>
-        <button id={setting + "-decrement"} type="button" disabled={isRunning} onClick={this.handleClick}>DOWN</button>
+        <button id={setting + "-decrement"} type="button" disabled={isRunning} onClick={this.handleClick}>&#9660;</button>
         <span id={setting + "-length"}>{length}</span>
-        <button id={setting + "-increment"} type="button" disabled={isRunning} onClick={this.handleClick}>UP</button>
+        <button id={setting + "-increment"} type="button" disabled={isRunning} onClick={this.handleClick}>&#9650;</button>
       </div>
     );
   }
