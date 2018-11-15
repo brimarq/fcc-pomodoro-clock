@@ -1,0 +1,13 @@
+#time-ring-container {
+  position: relative;
+  height: 160px;
+  margin: 10px;
+}
+
+#canvas {
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  z-index: -10;
+}

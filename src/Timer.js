@@ -66,7 +66,6 @@ class Timer extends PureComponent {
       <div id="timer">
         <TimeRing {...store.getState()} />
         
-        <TimerDisplay />
         <TimerSetting 
           setting="break" 
           label="Break Length" 

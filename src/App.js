@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import store from "./store";
-// import TimerSetting from "./TimerSetting";
 import Timer from "./Timer";
-import TimeRing from "./TimeRing";
 
 class App extends Component {
   render() {

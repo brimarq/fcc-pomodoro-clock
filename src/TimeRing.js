@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import "./TimeRing.css";
+import TimerDisplay from "./TimerDisplay";
 // import store from "./store";
 // import anime from 'animejs'
 
@@ -110,7 +111,7 @@ class TimeRing extends PureComponent {
         drawArc(circ.x, circ.y, circ.r, circ.arc.start, circ.arc.end2, circ.arc.ccw2, circ.lineW, circ.arc.clr2);
         // Time remaining arc
         drawArc(circ.x, circ.y, circ.r, circ.arc.start, circ.arc.end1, circ.arc.ccw1, circ.lineW, circ.arc.clr1);
-        drawText(timerLabel, mmss);
+        // drawText(timerLabel, mmss);
       }
 
       drawRing();
@@ -158,7 +159,8 @@ class TimeRing extends PureComponent {
 
     return (
       <div id="time-ring-container">
-        <canvas width="160" height="160" ref={this.canvas} style={{border: "1px solid #acacac"}} />
+        <canvas id="canvas" width="160" height="160" ref={this.canvas} style={{border: "1px solid #acacac"}} />
+        <TimerDisplay />
       </div>
     );
   }
