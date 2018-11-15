@@ -1,9 +1,3 @@
-#time-ring-container {
-  position: relative;
-  height: 300px;
-  margin: 10px;
-}
-
 #canvas {
   position: absolute;
   top: 50%; 

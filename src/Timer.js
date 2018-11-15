@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import store from "./store";
 import "./Timer.css";
 // import anime from 'animejs'
-import TimeRing from "./TimeRing";
+import TimerCanvas from "./TimerCanvas";
+import TimerDisplay from "./TimerDisplay";
 import TimerControls from "./TimerControls";
 import TimerSetting from "./TimerSetting";
 import { tickTimer, toggleTimer, setIsRunning, resetTimer } from "./actions";
@@ -62,7 +63,10 @@ class Timer extends PureComponent {
     
     return (
       <div id="timer">
-        <TimeRing {...store.getState()} />
+        <div id="time-ring-container">
+          <TimerCanvas {...store.getState()} />
+          <TimerDisplay />
+        </div>
         
         <TimerSetting 
           setting="break" 

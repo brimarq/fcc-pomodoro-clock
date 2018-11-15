@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import "./TimeRing.css";
-import TimerDisplay from "./TimerDisplay";
+import "./TimerCanvas.css";
+
 // import store from "./store";
 // import anime from 'animejs'
 
-class TimeRing extends PureComponent {
+class TimerCanvas extends PureComponent {
   constructor(props) {
     super(props);
     this.canvas = React.createRef();
@@ -23,16 +23,16 @@ class TimeRing extends PureComponent {
     const { isBreak, isRunning, breakLength, sessionLength, timer } = this.props;
     // const totalTime = isBreak ? breakLength * 60 : sessionLength * 60;
     // const timeNow = timer;
-    const timerLabel = isBreak ? "Break" : "Session";
-    const mmss = mmssFormat(timer);
+    // const timerLabel = isBreak ? "Break" : "Session";
+    // const mmss = mmssFormat(timer);
 
-    function mmssFormat(time) {
-      //const timeInSec = Math.ceil(time / 1000);
-      const padZero = (n) => n < 10 ? '0' + n : n;
-      const mm = padZero(Math.floor(time / 60));
-      const ss = padZero(time % 60);
-      return mm + ':' + ss;
-    }
+    // function mmssFormat(time) {
+    //   //const timeInSec = Math.ceil(time / 1000);
+    //   const padZero = (n) => n < 10 ? '0' + n : n;
+    //   const mm = padZero(Math.floor(time / 60));
+    //   const ss = padZero(time % 60);
+    //   return mm + ':' + ss;
+    // }
     
     // draw fn w/default
     const draw = (timeNow = timer * 1000) => {
@@ -158,14 +158,11 @@ class TimeRing extends PureComponent {
   render() {
 
     return (
-      <div id="time-ring-container">
-        <canvas id="canvas" width="300" height="300" ref={this.canvas} style={{border: "1px solid #acacac"}} />
-        <TimerDisplay />
-      </div>
+      <canvas id="canvas" width="300" height="300" ref={this.canvas} style={{border: "1px solid #acacac"}} />
     );
   }
 }
 
 
 
-export default TimeRing;
+export default TimerCanvas;
