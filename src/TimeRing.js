@@ -159,7 +159,7 @@ class TimeRing extends PureComponent {
 
     return (
       <div id="time-ring-container">
-        <canvas id="canvas" width="160" height="160" ref={this.canvas} style={{border: "1px solid #acacac"}} />
+        <canvas id="canvas" width="300" height="300" ref={this.canvas} style={{border: "1px solid #acacac"}} />
         <TimerDisplay />
       </div>
     );
