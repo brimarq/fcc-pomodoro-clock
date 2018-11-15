@@ -3,7 +3,7 @@ import store from "./store";
 import "./Timer.css";
 // import anime from 'animejs'
 import TimeRing from "./TimeRing";
-import TimerDisplay from "./TimerDisplay";
+import TimerControls from "./TimerControls";
 import TimerSetting from "./TimerSetting";
 import { tickTimer, toggleTimer, setIsRunning, resetTimer } from "./actions";
 
@@ -13,7 +13,7 @@ class Timer extends PureComponent {
     super(props);
     this.audioElement = React.createRef();
     this.handleTimer = this.handleTimer.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleTimerControl = this.handleTimerControl.bind(this);
   }
 
   handleTimer() {
@@ -39,7 +39,7 @@ class Timer extends PureComponent {
     isRunning ? clearInterval(this.timerID) : startTimer();
   }
 
-  handleClick(e) {
+  handleTimerControl(e) {
     const clickedId = e.target.id;
     const beep = this.audioElement.current;
     const toggle = (bool) => {
@@ -58,9 +58,7 @@ class Timer extends PureComponent {
 
 
   render() {
-    const { isBreak, isRunning } = this.props;
-    
-    const btnToggleLabel = isRunning ? "STOP" : "START";
+    // const { isBreak, isRunning } = this.props;
     
     return (
       <div id="timer">
@@ -78,8 +76,7 @@ class Timer extends PureComponent {
           length={store.getState().sessionLength}  
           isRunning={store.getState().isRunning} 
         />
-        <button id="start_stop" type="button" onClick={this.handleClick}>{btnToggleLabel}</button>
-        <button id="reset" type="button" onClick={this.handleClick}>RESET</button>
+        <TimerControls isRunning={this.props.isRunning} handleTimerControl={this.handleTimerControl}/>
         <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg" ref={this.audioElement}></audio>
         
       </div>
