@@ -20,7 +20,8 @@ class TimerLength extends PureComponent {
   }
 
   render() {
-    const { setting, label, length, isRunning } = this.props;
+    const { setting, length, isRunning } = this.props;
+    const label = setting === "break" ? "Break Length" : "Session Length";
     
     return (
       <div id={setting + "-setting"}>

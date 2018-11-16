@@ -6,7 +6,7 @@ import TimerCanvas from "./TimerCanvas";
 import TimerDisplay from "./TimerDisplay";
 import TimerControls from "./TimerControls";
 import TimerSettings from "./TimerSettings";
-import TimerLength from "./TimerLength";
+
 import { tickTimer, toggleTimer, setIsRunning, resetTimer } from "./actions";
 
 
