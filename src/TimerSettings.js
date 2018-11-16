@@ -3,9 +3,6 @@ import "./TimerSettings.css";
 import TimerLength from "./TimerLength";
 
 class TimerSettings extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { isRunning, sessionLength, breakLength } = this.props;
