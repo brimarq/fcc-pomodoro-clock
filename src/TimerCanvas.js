@@ -93,16 +93,16 @@ class TimerCanvas extends PureComponent {
         ctx.stroke();
       }
 
-      function drawText(label, time) {
+      // function drawText(label, time) {
         
-        ctx.fillStyle = "hsl(" + hue + ", 100%, 50%)";
-        ctx.textAlign = 'center';
-        ctx.font = '1em Arial, Helvetica, sans-serif';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(label, circ.x, circ.r * 2 /3);
-        ctx.font = '2em Arial, Helvetica, sans-serif';
-        ctx.fillText(time, circ.x, circ.y);
-      }
+      //   ctx.fillStyle = "hsl(" + hue + ", 100%, 50%)";
+      //   ctx.textAlign = 'center';
+      //   ctx.font = '1em Arial, Helvetica, sans-serif';
+      //   ctx.textBaseline = 'middle';
+      //   ctx.fillText(label, circ.x, circ.r * 2 /3);
+      //   ctx.font = '2em Arial, Helvetica, sans-serif';
+      //   ctx.fillText(time, circ.x, circ.y);
+      // }
 
       function drawRing() {
         // Clear canvas first
@@ -156,9 +156,9 @@ class TimerCanvas extends PureComponent {
   }
 
   render() {
-
+    const { size } = this.props;
     return (
-      <canvas id="canvas" width="300" height="300" ref={this.canvas} style={{border: "1px solid #acacac"}} />
+      <canvas id="canvas" width={size} height={size} ref={this.canvas} style={{border: "1px solid #acacac"}} />
     );
   }
 }

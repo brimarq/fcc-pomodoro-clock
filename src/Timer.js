@@ -65,7 +65,7 @@ class Timer extends PureComponent {
     return (
       <div id="timer">
         <div id="time-ring-container">
-          <TimerCanvas {...this.props} />
+          <TimerCanvas size="300" {...this.props} />
           <TimerDisplay />
         </div>
         
