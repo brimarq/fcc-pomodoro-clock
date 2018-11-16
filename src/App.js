@@ -10,10 +10,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">Header</header>
         <main className="App-main">
-          <div className="pomodoro-clock">
-            <Timer {...store.getState()} />
-            
-          </div>
+          <Timer {...store.getState()} />
         </main>
         <footer className="App-footer">Footer</footer>
       </div>
