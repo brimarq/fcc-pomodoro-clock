@@ -5,7 +5,8 @@ import "./Timer.css";
 import TimerCanvas from "./TimerCanvas";
 import TimerDisplay from "./TimerDisplay";
 import TimerControls from "./TimerControls";
-import TimerSetting from "./TimerSetting";
+import TimerSettings from "./TimerSettings";
+import TimerLength from "./TimerLength";
 import { tickTimer, toggleTimer, setIsRunning, resetTimer } from "./actions";
 
 
@@ -64,22 +65,12 @@ class Timer extends PureComponent {
     return (
       <div id="timer">
         <div id="time-ring-container">
-          <TimerCanvas {...store.getState()} />
+          <TimerCanvas {...this.props} />
           <TimerDisplay />
         </div>
         
-        <TimerSetting 
-          setting="break" 
-          label="Break Length" 
-          length={store.getState().breakLength}  
-          isRunning={store.getState().isRunning}  
-        />
-        <TimerSetting 
-          setting="session" 
-          label="Session Length" 
-          length={store.getState().sessionLength}  
-          isRunning={store.getState().isRunning} 
-        />
+        <TimerSettings isRunning={this.props.isRunning} sessionLength={this.props.sessionLength} breakLength={this.props.breakLength}/>
+        
         <TimerControls isRunning={this.props.isRunning} handleTimerControl={this.handleTimerControl}/>
         <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg" ref={this.audioElement}></audio>
         
