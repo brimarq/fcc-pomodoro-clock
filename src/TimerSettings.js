@@ -9,16 +9,15 @@ class TimerSettings extends PureComponent {
     
     return (
       <div id="timer-settings">
-        
-        <TimerLength 
-          setting="break" 
-          length={breakLength}  
-          isRunning={isRunning}  
-        />
         <TimerLength 
           setting="session" 
           length={sessionLength}  
           isRunning={isRunning} 
+        />
+        <TimerLength 
+          setting="break" 
+          length={breakLength}  
+          isRunning={isRunning}  
         />
       </div>
     );
