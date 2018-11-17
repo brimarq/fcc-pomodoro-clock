@@ -9,6 +9,7 @@ class TimerSettings extends PureComponent {
     
     return (
       <div id="timer-settings">
+        
         <TimerLength 
           setting="break" 
           length={breakLength}  

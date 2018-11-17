@@ -64,16 +64,16 @@ class Timer extends PureComponent {
     
     return (
       <div id="timer">
-        <div id="time-ring-container">
-          <TimerCanvas size="300" {...this.props} />
+        <TimerCanvas size="300" {...this.props} />
+        <div id="timer-face">
+          
           <TimerDisplay />
+          <TimerSettings isRunning={this.props.isRunning} sessionLength={this.props.sessionLength} breakLength={this.props.breakLength}/>
+          <TimerControls isRunning={this.props.isRunning} handleTimerControl={this.handleTimerControl}/>
         </div>
         
-        <TimerSettings isRunning={this.props.isRunning} sessionLength={this.props.sessionLength} breakLength={this.props.breakLength}/>
         
-        <TimerControls isRunning={this.props.isRunning} handleTimerControl={this.handleTimerControl}/>
         <audio id="beep" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" type="audio/mpeg" ref={this.audioElement}></audio>
-        
       </div>
     );
   }

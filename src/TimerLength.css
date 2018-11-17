@@ -1,0 +1,25 @@
+#break-setting, #session-setting {
+  display: flex;
+  
+}
+
+#session-setting {
+  flex-direction: row-reverse;
+}
+
+
+#session-label, #break-label {
+  font-size: .8rem;
+  text-transform: uppercase;
+  
+}
+
+.setting-display {
+  display: inline-block;
+}
+.setting-buttons {
+  display: inline-block;
+}
+.setting-buttons button {
+  display: block;
+}

@@ -2,4 +2,99 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #3C3C3C;
+  color: #eee;
 }
+
+/* button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: #0069ed;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+  background: #0053ba;
+}
+
+button:focus {
+  outline: 1px solid #fff;
+  //outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.99);
+} */
+
+/* button {
+  backface-visibility: hidden;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  background: linear-gradient(180deg,#f9f9f9 0%,#e0e0e0 100%);
+  border-radius: 100px;
+  border: 0.5px solid rgba(0,0,0,0.2);
+  border-width: 0.5px 0.5px 0.5px 0.5px;
+  padding: 4px 22px 5px 22px;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.6),0px 0px 5px #ffffff,0px 1px 0px 3px rgba(0%,0%,0%,0.2),inset 0px 1px 0px #ffffff;
+    color: #273;
+  font-size: 16px;
+  font-family: Helvetica Neue;
+  font-weight: 900;
+  font-style: normal
+} */
+
+
+
+button {
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  /* padding: 1rem 2rem; */
+  padding: 0.3rem .5rem;
+  margin: 0;
+  text-decoration: none;
+  background: linear-gradient(180deg,hsla(0, 0%, 88%, 1) 0%,hsla(0, 0%, 78%, 1) 100%);
+  border: 0.5px solid rgba(0,0,0,0.2);
+  border-radius: 100px;
+  /* box-shadow: 0px 1px 1px rgba(0,0,0,0.6),0px 0px 5px #ffffff,0px 1px 0px 3px rgba(0%,0%,0%,0.2),inset 0px 1px 0px #ffffff; */
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: .8rem;
+  line-height: 1;
+  
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+  background: linear-gradient(180deg,hsla(0, 0%, 78%, 1) 0%,hsla(0, 0%, 68%, 1) 100%);
+}
+
+button:focus {
+  /* outline: 1px solid #fff;
+  outline-offset: -4px; */
+  outline: none;
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
+

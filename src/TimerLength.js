@@ -21,14 +21,22 @@ class TimerLength extends PureComponent {
 
   render() {
     const { setting, length, isRunning } = this.props;
-    const label = setting === "break" ? "Break Length" : "Session Length";
+    // const label = setting === "break" ? "Break Length" : "Session Length";
     
     return (
       <div id={setting + "-setting"}>
-        <span id={setting + "-label"}>{label}</span>
-        <button id={setting + "-decrement"} type="button" disabled={isRunning} onClick={this.handleClick}>&#9660;</button>
-        <span id={setting + "-length"}>{length}</span>
-        <button id={setting + "-increment"} type="button" disabled={isRunning} onClick={this.handleClick}>&#9650;</button>
+        <div className="setting-display">
+          <div id={setting + "-label"}>{setting}</div>
+          <span id={setting + "-length"}>{length + " min"}</span>
+        </div>
+        <div className="setting-buttons">
+          <button id={setting + "-increment"} type="button" disabled={isRunning} onClick={this.handleClick}>&#9650;</button>
+          <button id={setting + "-decrement"} type="button" disabled={isRunning} onClick={this.handleClick}>&#9660;</button>
+        </div>
+        
+        
+        
+        
       </div>
     );
   }

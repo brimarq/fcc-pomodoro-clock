@@ -1,5 +1,17 @@
-#time-ring-container {
+#timer {
   position: relative;
   height: 300px;
   margin: 10px;
+}
+
+#timer-face {
+  position: absolute;
+  height: 75%;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 1; */
+  justify-content: space-around;
 }
