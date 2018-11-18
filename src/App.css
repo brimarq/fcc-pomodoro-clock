@@ -1,12 +1,36 @@
 .App {
   text-align: center;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 300px 1fr;
+  /* grid-template-rows: auto 2fr auto; */
+  grid-template-areas: 
+    "hdr"
+    "main"
+    "ftr";
+  color: #ddd;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  grid-area: hdr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #222; */
+  /* height: 150px;
+  padding: 20px; */
+  
+}
+
+.App-main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 1fr 300px 1fr;
+  grid-template-areas: ". timer .";
+}
+
+.App-footer {
+  grid-area: ftr;
 }
 
 

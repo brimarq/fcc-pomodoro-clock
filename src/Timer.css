@@ -1,12 +1,15 @@
 #timer {
+  grid-area: timer;
   position: relative;
   height: 300px;
-  margin: 10px;
+  
+  /* margin: 10px; */
 }
 
 #timer-face {
   position: absolute;
   height: 75%;
+  width: 75%;
   top: 50%; 
   left: 50%; 
   transform: translate(-50%, -50%);

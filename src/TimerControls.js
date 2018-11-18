@@ -4,7 +4,7 @@ import "./TimerControls.css";
 class TimerControls extends PureComponent {
   render() {
     const { handleTimerControl, isRunning } = this.props;
-    const startStopLabel = isRunning ? "STOP" : "START";
+    const startStopLabel = isRunning ? "PAUSE" : "START";
     return (
       <div id="timer-controls">
        <button id="start_stop" type="button" onClick={handleTimerControl}>{startStopLabel}</button>

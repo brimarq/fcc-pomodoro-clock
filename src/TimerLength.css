@@ -1,12 +1,48 @@
 #break-setting, #session-setting {
   display: flex;
-  
+  flex-direction: column;
+  /* border: 1px solid red; */
 }
 
-#session-setting {
+#break-label, #session-label {
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+
+.setting-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#break-setting .setting-container {
   flex-direction: row-reverse;
 }
 
+.setting-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-length {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+#break-length, #session-length {
+  font-size: 2em;
+  line-height: 1.5;
+  /* border: 1px solid red; */
+  
+}
+
+
+
+
+
+/* #session-setting.setting-container {
+  flex-direction: row-reverse;
+}
 
 #session-label, #break-label {
   font-size: .8rem;
@@ -22,4 +58,4 @@
 }
 .setting-buttons button {
   display: block;
-}
+} */
