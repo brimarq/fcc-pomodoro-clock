@@ -158,7 +158,7 @@ class TimerCanvas extends PureComponent {
   render() {
     const { size } = this.props;
     return (
-      <canvas id="canvas" width={size} height={size} ref={this.canvas} style={{border: "1px solid #acacac"}} />
+      <canvas id="canvas" width={size} height={size} ref={this.canvas} />
     );
   }
 }

@@ -64,10 +64,12 @@ class Timer extends PureComponent {
     
     return (
       <div id="timer">
-        <TimerCanvas size="300" {...this.props} />
+        {/* <h1>Pomodoro Clock</h1> */}
         <div id="timer-face">
-          
+          <TimerCanvas size="250" {...this.props} />
           <TimerDisplay />
+        </div>
+        <div id="timer-control-panel">
           <TimerSettings isRunning={this.props.isRunning} sessionLength={this.props.sessionLength} breakLength={this.props.breakLength}/>
           <TimerControls isRunning={this.props.isRunning} handleTimerControl={this.handleTimerControl}/>
         </div>

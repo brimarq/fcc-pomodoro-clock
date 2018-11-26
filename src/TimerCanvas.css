@@ -1,7 +1,6 @@
 #canvas {
-  position: absolute;
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%);
-  z-index: -10;
+  position: relative;
+  z-index: -5;
+  border: 1px solid #acacac;
+  border-radius: 999px;
 }
