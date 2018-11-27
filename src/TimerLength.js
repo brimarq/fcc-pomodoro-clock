@@ -28,19 +28,13 @@ class TimerLength extends PureComponent {
         <div id={setting + "-label"}>{"set " + setting}</div>
         <div className="setting-container">
           <div className="setting-buttons">
-            <button id={setting + "-increment"} className="btn" type="button" disabled={isRunning} onClick={this.handleClick}>&#9650;</button>
-            <button id={setting + "-decrement"} type="button" disabled={isRunning} onClick={this.handleClick}>&#9660;</button>
+            <button id={setting + "-increment"} className="btn-setting-up" type="button" disabled={isRunning} onClick={this.handleClick}>&#9650;</button>
+            <button id={setting + "-decrement"} className="btn-setting-down" type="button" disabled={isRunning} onClick={this.handleClick}>&#9660;</button>
           </div>
           <div className="setting-length">
-            <div id={setting + "-length"}>{length}</div>
+            <div id={setting + "-length"}>{length}</div> 
           </div>
-          
         </div>
-        
-        
-        
-        
-        
       </div>
     );
   }

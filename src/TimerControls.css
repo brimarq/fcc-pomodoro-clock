@@ -1,3 +1,11 @@
+#timer-controls {
+  display: flex;
+  justify-content: center;
+}
+
 #timer-controls button {
-  margin: 0 3px;
+  margin: 5px;
+  height: 30px;
+  width: 105px;
+  line-height: 30px;
 }

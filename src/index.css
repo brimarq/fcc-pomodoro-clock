@@ -1,199 +1,247 @@
+:root {
+  /* .rubber-pad colors */
+  --rubber-pad-color: hsla(0, 0%, 60%, 1);
+  --rubber-pad-background-color: hsla(205, 8%, 15%, 1);
+  --rubber-pad-text-shadow-color: hsla(0, 0%, 100%, 0.8);
+  --rubber-pad-active-color: hsla(0, 0%, 0%, 0.7);
+  --rubber-pad-active-text-shadow-color: hsla(0, 0%, 100%, 0.15);
+  --rubber-pad-edge-color-light: hsla(0, 0%, 100%, 0.3); 
+  --rubber-pad-edge-color-dark: hsla(0, 0%, 0%, 0.5); 
+  --rubber-pad-fill-color-light: hsla(0, 0%, 100%, 0.1); 
+  --rubber-pad-fill-color-dark: hsla(0, 0%, 0%, 0.2); 
+  --rubber-pad-drop-shadow-color: hsla(0, 0%, 0%, 1); 
+  --rubber-pad-before-background-color: hsla(0, 0%, 10%, 1);
+  --rubber-pad-before-shadow-color-light: hsla(0, 0%, 100%, 0.1);
+  --rubber-pad-before-shadow-color-dark: hsla(0, 0%, 0%, 0.4); 
+  --rubber-pad-before-edge-blur-color: hsla(0, 0%, 23%, 1);
+    
+}
+
+
+
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: #3C3C3C;
   color: #ddd;
+  /* height: 100%; */
 }
 
-/* button {
-  display: inline-block;
-  border: none;
-  padding: 1rem 2rem;
-  margin: 0;
-  text-decoration: none;
-  background: #0069ed;
-  color: #ffffff;
-  font-family: sans-serif;
-  font-size: 1rem;
-  line-height: 1;
-  cursor: pointer;
-  text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
 
-button:hover,
-button:focus {
-  background: #0053ba;
-}
-
-button:focus {
-  outline: 1px solid #fff;
-  //outline-offset: -4px;
-}
-
-button:active {
-  transform: scale(0.99);
-} */
-
-/* button {
-  backface-visibility: hidden;
-  position: relative;
-  cursor: pointer;
-  display: inline-block;
-  white-space: nowrap;
-  background: linear-gradient(180deg,#f9f9f9 0%,#e0e0e0 100%);
-  border-radius: 100px;
-  border: 0.5px solid rgba(0,0,0,0.2);
-  border-width: 0.5px 0.5px 0.5px 0.5px;
-  padding: 4px 22px 5px 22px;
-  box-shadow: 0px 1px 1px rgba(0,0,0,0.6),0px 0px 5px #ffffff,0px 1px 0px 3px rgba(0%,0%,0%,0.2),inset 0px 1px 0px #ffffff;
-    color: #273;
-  font-size: 16px;
-  font-family: Helvetica Neue;
-  font-weight: 900;
-  font-style: normal
-} */
-
-
-
-/* button {
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-  padding: 1rem 2rem;
-  padding: 0.4rem .5rem;
-  margin: 0;
-  text-decoration: none;
-  background: linear-gradient(180deg,hsl(0, 0%, 40%, 1) 0%,hsl(0, 0%, 30%, 1) 100%);
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
-  box-shadow: 
-    0px 1px 1px rgba(0,0,0,0.6), 
-    0px 0px 5px #ffffff, 
-    0px 1px 0px 3px rgba(0%,0%,0%,0.2), 
-    inset 0px 1px 0px rgba(255, 255, 255, 0.5);
-  color: #ffffff;
-  font-family: sans-serif;
-  font-size: .8rem;
-  line-height: 1;
-  text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-button:hover,
-button:focus {
-  background: linear-gradient(180deg,hsl(0, 0%, 50%, 1) 0%,hsl(0, 0%, 40%, 1) 100%);
-}
-
-button:focus {
-  outline: 1px solid #fff;
-  outline-offset: -4px;
-  outline: none;
-}
-
-button:active {
-  transform: scale(0.99);
-} */
-
-
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
-
- button {
+/**** Button resets from normalize.css  ****/
+button {
+  /**
+    * 1. Change the font styles in all browsers.
+    * 2. Remove the margin in Firefox and Safari.
+  */
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
   text-transform: none;
- }
+}
 
- /* Correct the inability to style clickable types in iOS and Safari. */
-  button,
-  [type="button"] {
-    -webkit-appearance: button;
-  }
+/* Correct the inability to style clickable types in iOS and Safari. */
+button,
+[type="button"] {
+  -webkit-appearance: button;
+}
 
- /* Remove the inner border and padding in Firefox. */
- button::-moz-focus-inner,
- [type="button"]::-moz-focus-inner {
-   border-style: none;
-   padding: 0;
- }
+/* Remove the inner border and padding in Firefox. */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
 
- /* Restore the focus styles unset by the previous rule. */
-  /* button:-moz-focusring,
-  [type="button"]:-moz-focusring,
-  [type="reset"]:-moz-focusring,
-  [type="submit"]:-moz-focusring {
-    outline: 1px dotted ButtonText;
-  } */
+/* Restore the focus styles unset by the previous rule. */
+/* button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+} */
 
-  button:focus {
-    /* outline: 1px solid #fff;
-    outline-offset: -4px; */
-    outline: none;
-  }
+button:focus {
+  /* outline: 1px solid #fff;
+  outline-offset: -4px; */
+  outline: none;
+}
 
- .btn {
+.rubber-pad {
+  /* --pixels-w: 140;
+  --pixels-h: 140; */
+  --rubber-pad-w: calc(1px * var(--pixels-w));
+  --rubber-pad-h: calc(1px * var(--pixels-h));
+  --rubber-pad-font-size: calc(1em * calc(var(--pixels-h) * .0357)); /* replaces 5em */
+
+   
+  
+  /* box-shadows */
+  --rubber-pad-box-shadow-default: 
+    /* upper left edge shine */
+    inset calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-light),
+    /* upper fill light */ 
+    inset calc(var(--rubber-pad-w) * 0.0214) calc(var(--rubber-pad-h) * 0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-light), 
+    /* bottom edge shade */ 
+    inset calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-dark),
+    /* lower fill shade */  
+    inset calc(var(--rubber-pad-w) * -0.0214) calc(var(--rubber-pad-h) * -0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-dark),
+    /* drop shadow */
+    calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.036) calc(var(--rubber-pad-h) * 0.21) calc(var(--rubber-pad-h) * -0.029) var(--rubber-pad-drop-shadow-color);
+
+  --rubber-pad-box-shadow-before: 
+    /* bottom edge shine */
+    inset calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-light), 
+    /* lower fill light */
+    inset calc(var(--rubber-pad-w) * -0.036) calc(var(--rubber-pad-h) * -0.1) calc(var(--rubber-pad-h) * 0.286) var(--rubber-pad-fill-color-light),
+    /* top edge shade */
+    inset calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-dark), 
+    /* upper fill shade */
+    inset calc(var(--rubber-pad-w) * 0.036) calc(var(--rubber-pad-h) * 0.1) calc(var(--rubber-pad-h) * 0.286) var(--rubber-pad-fill-color-dark),
+    /* upper outer shadow */
+    calc(var(--rubber-pad-w) * -0.0143) calc(var(--rubber-pad-h) * -0.286) calc(var(--rubber-pad-h) * 0.358) calc(var(--rubber-pad-h) * -0.143) var(--rubber-pad-before-shadow-color-light),
+    /* lower outer shadow */
+    calc(var(--rubber-pad-w) * 0.0143) calc(var(--rubber-pad-h) * 0.25) calc(var(--rubber-pad-h) * 0.358) calc(var(--rubber-pad-h) * -0.072) var(--rubber-pad-before-shadow-color-dark),
+    /* light blur around border */
+    0px 0px calc(var(--rubber-pad-h) * 0.179) calc(var(--rubber-pad-h) * 0.0573) var(--rubber-pad-before-edge-blur-color);
+
+  --rubber-pad-box-shadow-active: 
+    /* upper left edge shine (same as default) */
+    inset calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-light), 
+    /* upper fill shade ( xy offsets and blur same as default, color dark */
+    inset calc(var(--rubber-pad-w) * 0.0214) calc(var(--rubber-pad-h) * 0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-dark),
+    /* bottom edge shade (same as default) */
+    inset calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-dark), 
+    /* lower fill light ( xy offsets and blur same as default, color light */
+    inset calc(var(--rubber-pad-w) * -0.0214) calc(var(--rubber-pad-h) * -0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-light),
+    /* drop shadow (same as default w/shorter blur radius) */
+    calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.036) calc(var(--rubber-pad-h) * 0.072) calc(var(--rubber-pad-h) * -0.029) var(--rubber-pad-drop-shadow-color);
+  
   position: relative;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  background: #25292C;
-  margin: 0px auto;
-  text-align: center;
+  width: calc(1px * var(--pixels-w)); /* original width: 140px */
+  height: calc(1px * var(--pixels-h)); /* original height: 140px */
+  line-height: var(--rubber-pad-h); /* original line-height: 140px */
+  background: var(--rubber-pad-background-color);
+  margin: calc(var(--rubber-pad-h) * .5) calc(var(--rubber-pad-h) * .5);
   border: none;
+  text-align: center;
   border-radius: 999px;
-  color: rgba(155,155,155,1);
-  text-shadow: -1px -1px 0px rgba(255,255,255,0.8), 1px 1px 2px rgba(0,0,0,1);
-  font-size: 1em;
+  color: var(--rubber-pad-color);
+  text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
+  /* text-shadow: calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) 0px rgba(255,255,255,0.8), calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) rgba(0,0,0,1); */
+  /* font-size: 5em; */
+  font-size: var(--rubber-pad-font-size);
   font-family: sans-serif;
-  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
-              inset 2px 10px 30px rgba(255,255,255,0.1), /* (a)px (b = a*5)px (b*3)px */
-              inset -1px -1px 2px rgba(0,0,0,0.5), 
-              inset -2px -10px 30px rgba(0,0,0,0.2),
-              1px 5px 30px -4px rgba(0,0,0,1);
+  box-shadow: var(--rubber-pad-box-shadow-default);
   -webkit-transition: 0.1s ease-out;
   -moz-transition:    0.1s ease-out;
   -o-transition:      0.1s ease-out;
   transition:         0.1s ease-out;
+  /* Disable selection of button text */
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
+  /* box-sizing: border-box; */
+}
+
+/* .rubber-pad::before {
+  content: "";
+  background: var(--rubber-pad-before-background-color);
+  width: calc(var(--rubber-pad-w) + calc(var(--rubber-pad-h) * 0.21));
+  height: calc(var(--rubber-pad-h) + calc(var(--rubber-pad-h) * 0.21));
+  position: absolute;
+  top: calc(var(--rubber-pad-h) * -0.1);
+  left: calc(var(--rubber-pad-h) * -0.1);
+  z-index: -1;
+  border-radius: 999px;
+  box-shadow: var(--rubber-pad-box-shadow-before);
+} */
+
+.rubber-pad:active {
+  color: var(--rubber-pad-active-color);
+  text-shadow: 1px 1px 0px var(--rubber-pad-active-text-shadow-color);
+  box-shadow: var(--rubber-pad-box-shadow-active);
+}
+
+.rubber-pad-raised:before {
+  content: "";
+  background: var(--rubber-pad-before-background-color);
+  width: calc(var(--rubber-pad-w) + calc(var(--rubber-pad-h) * 0.21));
+  height: calc(var(--rubber-pad-h) + calc(var(--rubber-pad-h) * 0.21));
+  position: absolute;
+  top: calc(var(--rubber-pad-h) * -0.1);
+  left: calc(var(--rubber-pad-h) * -0.1);
+  z-index: -1;
+  border-radius: 999px;
+  box-shadow: var(--rubber-pad-box-shadow-before);
+  display: block;
+}
+
+
+
+
+.btn {
+position: relative;
+cursor: pointer;
+width: 30px;
+height: 30px;
+line-height: 30px;
+background: #25292C;
+margin: 0px auto;
+text-align: center;
+border: none;
+border-radius: 999px;
+color: rgba(155,155,155,1);
+text-shadow: -1px -1px 0px rgba(255,255,255,0.8), 1px 1px 2px rgba(0,0,0,1);
+font-size: 1em;
+font-family: sans-serif;
+box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
+            inset 2px 10px 30px rgba(255,255,255,0.1), /* (a)px (b = a*5)px (b*3)px */
+            inset -1px -1px 2px rgba(0,0,0,0.5), 
+            inset -2px -10px 30px rgba(0,0,0,0.2),
+            1px 5px 30px -4px rgba(0,0,0,1);
+-webkit-transition: 0.1s ease-out;
+-moz-transition:    0.1s ease-out;
+-o-transition:      0.1s ease-out;
+transition:         0.1s ease-out;
 }
 
 .btn:before {
-  content: "";
-  background: #1A1A1A;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  z-index: -1;
-  
-  border-radius: 999px;
-  box-shadow: inset -1px -1px 2px rgba(255,255,255,0.3), 
-    inset -5px -15px 40px rgba(255,255,255,0.1),
-    inset 1px 1px 2px rgba(0,0,0,0.5), 
-    inset 5px 15px 40px rgba(0,0,0,0.2),
-    -2px -40px 50px -20px rgba(255,255,255,0.1),
-    2px 35px 50px -10px rgba(0,0,0,0.4),
-    0px 0px 25px 8px rgba(60,60,60,1);
+content: "";
+background: #1A1A1A;
+width: 32px;
+height: 32px;
+position: absolute;
+top: -1px;
+left: -1px;
+z-index: -1;
+
+border-radius: 999px;
+box-shadow: inset -1px -1px 2px rgba(255,255,255,0.3), 
+  inset -5px -15px 40px rgba(255,255,255,0.1),
+  inset 1px 1px 2px rgba(0,0,0,0.5), 
+  inset 5px 15px 40px rgba(0,0,0,0.2),
+  -2px -40px 50px -20px rgba(255,255,255,0.1),
+  2px 35px 50px -10px rgba(0,0,0,0.4),
+  0px 0px 25px 8px rgba(60,60,60,1);
 }
 
 .btn:active {
-  color: rgba(0,0,0,0.7);
-  text-shadow: 1px 1px 0px rgba(255,255,255,0.15);
-  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
-              inset 3px 15px 45px rgba(0,0,0,0.2),
-              inset -1px -1px 2px rgba(0,0,0,0.5), 
-              inset -3px -15px 45px rgba(255,255,255,0.1),
-              1px 5px 10px -4px rgba(0,0,0,1);
+color: rgba(0,0,0,0.7);
+text-shadow: 1px 1px 0px rgba(255,255,255,0.15);
+box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
+            inset 3px 15px 45px rgba(0,0,0,0.2),
+            inset -1px -1px 2px rgba(0,0,0,0.5), 
+            inset -3px -15px 45px rgba(255,255,255,0.1),
+            1px 5px 10px -4px rgba(0,0,0,1);
 }
 

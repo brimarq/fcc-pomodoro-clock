@@ -8,6 +8,10 @@
   padding: 5px 10px;
 }
 
+#timer-label {
+  text-transform: uppercase;
+}
+
 #time-left {
   font-size: 3em;
 }

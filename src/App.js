@@ -8,9 +8,7 @@ class App extends Component {
     //const { isBreak, isRunning, timer, breakLength, sessionLength } = store.getState();
     return (
       <div className="App">
-        <header className="App-header">
-        
-        </header>
+        <header className="App-header"></header>
         <main className="App-main">
           <Timer {...store.getState()} />
         </main>

@@ -1,6 +1,7 @@
 #break-setting, #session-setting {
   display: flex;
   flex-direction: column;
+  width: 50%;
   /* border: 1px solid red; */
 }
 
@@ -8,6 +9,8 @@
   text-transform: uppercase;
   font-size: 0.8em;
 }
+
+
 
 .setting-container {
   display: flex;
@@ -21,21 +24,45 @@
 .setting-buttons {
   display: flex;
   flex-direction: column;
+  width: 50%;
+  align-items: center;
 }
 
 .setting-length {
-  width: 50px;
+  width: 50%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
 #break-length, #session-length {
   font-size: 2em;
-  line-height: 1.5;
+  /* margin: auto;
+  padding: 5% 10%; */
+  /* line-height: 1.5; */
   /* border: 1px solid red; */
   
 }
 
+.btn-setting-up, 
+.btn-setting-down {
+  height: 30px;
+  width: 40px;
+  padding: 0;
+  line-height: 30px;
+  border-radius: 4px;
+  margin: 2px 0;
+}
+
+.btn-setting-up {
+  
+}
+
+
+
+.btn-setting-down {
+  
+}
 
 
 
