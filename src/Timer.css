@@ -1,13 +1,25 @@
 #timer {
-  /* position: absolute;
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); */
-  /* margin: auto; */
+  position: relative;
+  z-index: 0;
+  background: #3C3C3C;
   display: flex;
   flex-direction: column;
-  border: 1px solid #acacac;
+  border: none;
+  padding: 15px;
+  border-radius: 10em 10em 2em 2em;
+  box-shadow: 
+    /* upper left edge shine */
+    inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-light),
+    /* upper fill light */ 
+    inset 1px 3px 10px var(--rubber-pad-fill-color-light), 
+    /* bottom edge shade */ 
+    inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-dark),
+    /* lower fill shade */  
+    inset -1px -3px 10px var(--rubber-pad-fill-color-dark),
+    /* drop shadow */
+    0.5px 1px 6px 1px var(--rubber-pad-drop-shadow-color);
 }
+
 
 #timer-face {
   position: relative;
@@ -15,4 +27,6 @@
 
 #timer-control-panel {
   position: relative;
+  padding: 5px;
+  
 }
