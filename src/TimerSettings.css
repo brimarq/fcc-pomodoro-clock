@@ -5,7 +5,9 @@
   transform: translate(-50%, 0); */
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  width: 100%;
+  justify-content: space-between;
+  
 }
 
 #timer-settings-label {

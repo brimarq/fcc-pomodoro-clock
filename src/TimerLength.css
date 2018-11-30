@@ -9,6 +9,8 @@
   text-transform: uppercase;
   font-size: 1em;
   margin: 5px 0;
+  color: var(--rubber-pad-color);
+  text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
 }
 
 
@@ -16,6 +18,7 @@
 .setting-container {
   display: flex;
   flex-direction: row;
+  
 }
 
 #break-setting .setting-container {
@@ -37,11 +40,12 @@
   justify-content: center;
   background: var(--rubber-pad-before-background-color);
   border-radius: 10px;
-  margin: 5px;
+  margin: 14px 5px;
 }
 
 #break-length, #session-length {
   font-size: 2em;
+  
   /* margin: auto;
   padding: 5% 10%; */
   /* line-height: 1.5; */
@@ -49,80 +53,67 @@
   
 }
 
+.btn-settings {
+  --pixels-w: 50;
+  --pixels-h: 30;
+  --btn-width: 50px;
+  --btn-height: 30px;
+}
+
 .btn-setting-up, 
 .btn-setting-down {
   height: 30px;
   width: 50px;
-  padding: 0;
+  /* padding: 0;
   line-height: 30px;
   border-radius: 10em;
-  border: none;
-  margin: 6px;
-  position: relative;
+  border: none; */
+  margin: 7px;
+  /* position: relative;
   
-  cursor: pointer;
-  background: var(--rubber-pad-background-color);
+  cursor: pointer; */
+  /* background: var(--rubber-pad-background-color);
 
   box-shadow: 
-    /* upper left edge shine */
-    inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-light),
-    /* upper fill light */ 
+    inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-light), 
     inset 1px 3px 10px var(--rubber-pad-fill-color-light), 
-    /* bottom edge shade */ 
-    inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-dark),
-    /* lower fill shade */  
+    inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-dark),  
     inset -1px -3px 10px var(--rubber-pad-fill-color-dark),
-    /* drop shadow */
-    0.5px 1px 6px 1px var(--rubber-pad-drop-shadow-color);
-
-  -webkit-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none; 
-  user-select: none;
+    0.5px 1px 6px -1px var(--rubber-pad-drop-shadow-color); */
+  
+    
 }
 
-.btn-setting-up::before, 
+/* .btn-setting-up::before, 
 .btn-setting-down::before {
   content: "";
   background: var(--rubber-pad-before-background-color);
-  width: 56px; /* width + 6 */
-  height: 36px; /* height + 6 */
+  width: 56px; 
+  height: 36px; 
   position: absolute;
-  top: -3px; /* -10% of height */
-  left: -3px; /* -10% of height */
+  top: -3px; 
+  left: -3px; 
   z-index: -1;
   border-radius: 10em;
   box-shadow: 
-    /* bottom edge shine */
     inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-light), 
-    /* lower fill light */
     inset -2px -3px 1px var(--rubber-pad-fill-color-light),
-    /* top edge shade */
     inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-dark), 
-    /* upper fill shade */
     inset 2px 3px 1px var(--rubber-pad-fill-color-dark),
-    /* upper outer shadow */
     -1px -9px 11px -4px var(--rubber-pad-before-shadow-color-light),
-    /* lower outer shadow */
     1px 8px 11px -2px var(--rubber-pad-before-shadow-color-dark),
-    /* light blur around border */
     0px 0px 5px 2px var(--rubber-pad-before-edge-blur-color);
-}
+} */
 
-.btn-setting-up:active, 
+/* .btn-setting-up:active, 
 .btn-setting-down:active {
   box-shadow: 
-    /* upper left edge shine (same as default) */
     inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-light), 
-    /* upper fill shade ( xy offsets and blur same as default, color dark */
     inset 1px 3px 10px var(--rubber-pad-fill-color-dark),
-    /* bottom edge shade (same as default) */
     inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-dark), 
-    /* lower fill light ( xy offsets and blur same as default, color light */
     inset -1px -3px 10px var(--rubber-pad-fill-color-light),
-    /* drop shadow (same as default w/shorter blur radius) */
-    0.5px 1px 2px 1px var(--rubber-pad-drop-shadow-color);
-}
+    0.5px 1px 2px -1px var(--rubber-pad-drop-shadow-color);
+} */
 
 #session-increment, 
 #session-decrement {

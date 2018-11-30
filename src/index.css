@@ -2,6 +2,7 @@
   /* .rubber-pad colors */
   --rubber-pad-color: hsla(0, 0%, 60%, 1);
   --rubber-pad-background-color: hsla(205, 8%, 15%, 1);
+  /* --rubber-pad-background-color: goldenrod; */
   --rubber-pad-text-shadow-color: hsla(0, 0%, 100%, 0.8);
   --rubber-pad-active-color: hsla(0, 0%, 0%, 0.7);
   --rubber-pad-active-text-shadow-color: hsla(0, 0%, 100%, 0.15);
@@ -36,22 +37,15 @@ body {
   /* background: #000000; 
   background: -webkit-linear-gradient(to bottom, #0f9b0f, #000000); 
   background: linear-gradient(to bottom, #0f9b0f, #000000);  */
-  background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
+  background: #434343;  /* fallback background color */
+  background: -webkit-linear-gradient(to bottom, #434343, #000000);
+  background: linear-gradient(to bottom, #434343, #000000); 
 
   color: #ddd;
   /* height: 100%; */
 }
 
-body::before {
-  
-}
-
-
-/**** Button resets from normalize.css  ****/
+/**** BUTTON RESETS from normalize.css  ****/
 button {
   /**
     * 1. Change the font styles in all browsers.
@@ -78,12 +72,12 @@ button::-moz-focus-inner,
 }
 
 /* Restore the focus styles unset by the previous rule. */
-/* button:-moz-focusring,
+button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
-} */
+}
 
 button:focus {
   /* outline: 1px solid #fff;
@@ -91,174 +85,90 @@ button:focus {
   outline: none;
 }
 
-.rubber-pad {
-  /* --pixels-w: 140;
-  --pixels-h: 140; */
-  --rubber-pad-w: calc(1px * var(--pixels-w));
-  --rubber-pad-h: calc(1px * var(--pixels-h));
-  --rubber-pad-font-size: calc(1em * calc(var(--pixels-h) * .0357)); /* replaces 5em */
+/*** 
+  * Rubber Pad styling adapted from "Blob Button" https://jsfiddle.net/andykenward/9y1jjsuz 
+***/
 
-   
+.btn-rubber-pad {
+  /**
+    --btn-width, --btn-height (in pixels) to be set on the button in a 
+    preceeding id/class or inline style.
+  */
   
   /* box-shadows */
   --rubber-pad-box-shadow-default: 
     /* upper left edge shine */
-    inset calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-light),
+    inset calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-light),
     /* upper fill light */ 
-    inset calc(var(--rubber-pad-w) * 0.0214) calc(var(--rubber-pad-h) * 0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-light), 
+    inset calc(var(--btn-width) * 0.0214) calc(var(--btn-height) * 0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-light), 
     /* bottom edge shade */ 
-    inset calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-dark),
+    inset calc(var(--btn-width) * -0.0072) calc(var(--btn-height) * -0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-dark),
     /* lower fill shade */  
-    inset calc(var(--rubber-pad-w) * -0.0214) calc(var(--rubber-pad-h) * -0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-dark),
+    inset calc(var(--btn-width) * -0.0214) calc(var(--btn-height) * -0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-dark),
     /* drop shadow */
-    calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.036) calc(var(--rubber-pad-h) * 0.21) calc(var(--rubber-pad-h) * -0.029) var(--rubber-pad-drop-shadow-color);
+    calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.036) calc(var(--btn-height) * 0.21) calc(var(--btn-height) * -0.029) var(--rubber-pad-drop-shadow-color);
 
   --rubber-pad-box-shadow-before: 
     /* bottom edge shine */
-    inset calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-light), 
+    inset calc(var(--btn-width) * -0.0072) calc(var(--btn-height) * -0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-light), 
     /* lower fill light */
-    inset calc(var(--rubber-pad-w) * -0.036) calc(var(--rubber-pad-h) * -0.1) calc(var(--rubber-pad-h) * 0.286) var(--rubber-pad-fill-color-light),
+    inset calc(var(--btn-width) * -0.036) calc(var(--btn-height) * -0.1) calc(var(--btn-height) * 0.286) var(--rubber-pad-fill-color-light),
     /* top edge shade */
-    inset calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-dark), 
+    inset calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-dark), 
     /* upper fill shade */
-    inset calc(var(--rubber-pad-w) * 0.036) calc(var(--rubber-pad-h) * 0.1) calc(var(--rubber-pad-h) * 0.286) var(--rubber-pad-fill-color-dark),
+    inset calc(var(--btn-width) * 0.036) calc(var(--btn-height) * 0.1) calc(var(--btn-height) * 0.286) var(--rubber-pad-fill-color-dark),
     /* upper outer shadow */
-    calc(var(--rubber-pad-w) * -0.0143) calc(var(--rubber-pad-h) * -0.286) calc(var(--rubber-pad-h) * 0.358) calc(var(--rubber-pad-h) * -0.143) var(--rubber-pad-before-shadow-color-light),
+    calc(var(--btn-width) * -0.0143) calc(var(--btn-height) * -0.286) calc(var(--btn-height) * 0.358) calc(var(--btn-height) * -0.143) var(--rubber-pad-before-shadow-color-light),
     /* lower outer shadow */
-    calc(var(--rubber-pad-w) * 0.0143) calc(var(--rubber-pad-h) * 0.25) calc(var(--rubber-pad-h) * 0.358) calc(var(--rubber-pad-h) * -0.072) var(--rubber-pad-before-shadow-color-dark),
+    calc(var(--btn-width) * 0.0143) calc(var(--btn-height) * 0.25) calc(var(--btn-height) * 0.358) calc(var(--btn-height) * -0.072) var(--rubber-pad-before-shadow-color-dark),
     /* light blur around border */
-    0px 0px calc(var(--rubber-pad-h) * 0.179) calc(var(--rubber-pad-h) * 0.0573) var(--rubber-pad-before-edge-blur-color);
+    0px 0px calc(var(--btn-height) * 0.179) calc(var(--btn-height) * 0.0573) var(--rubber-pad-before-edge-blur-color);
 
   --rubber-pad-box-shadow-active: 
     /* upper left edge shine (same as default) */
-    inset calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-light), 
+    inset calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-light), 
     /* upper fill shade ( xy offsets and blur same as default, color dark */
-    inset calc(var(--rubber-pad-w) * 0.0214) calc(var(--rubber-pad-h) * 0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-dark),
+    inset calc(var(--btn-width) * 0.0214) calc(var(--btn-height) * 0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-dark),
     /* bottom edge shade (same as default) */
-    inset calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) calc(var(--rubber-pad-h) * 0.0143) var(--rubber-pad-edge-color-dark), 
+    inset calc(var(--btn-width) * -0.0072) calc(var(--btn-height) * -0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-dark), 
     /* lower fill light ( xy offsets and blur same as default, color light */
-    inset calc(var(--rubber-pad-w) * -0.0214) calc(var(--rubber-pad-h) * -0.1) calc(var(--rubber-pad-h) * 0.32) var(--rubber-pad-fill-color-light),
+    inset calc(var(--btn-width) * -0.0214) calc(var(--btn-height) * -0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-light),
     /* drop shadow (same as default w/shorter blur radius) */
-    calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.036) calc(var(--rubber-pad-h) * 0.072) calc(var(--rubber-pad-h) * -0.029) var(--rubber-pad-drop-shadow-color);
+    calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.036) calc(var(--btn-height) * 0.072) calc(var(--btn-height) * -0.029) var(--rubber-pad-drop-shadow-color);
   
   position: relative;
   cursor: pointer;
-  width: calc(1px * var(--pixels-w)); /* original width: 140px */
-  height: calc(1px * var(--pixels-h)); /* original height: 140px */
-  line-height: var(--rubber-pad-h); /* original line-height: 140px */
+  width: var(--btn-width); 
+  height: var(--btn-height); 
+  line-height: var(--btn-height); 
   background: var(--rubber-pad-background-color);
-  margin: calc(var(--rubber-pad-h) * .5) calc(var(--rubber-pad-h) * .5);
+  margin: calc(var(--btn-height) * .25) calc(var(--btn-height) * .25);
   border: none;
   text-align: center;
   border-radius: 999px;
   color: var(--rubber-pad-color);
   text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
-  /* text-shadow: calc(var(--rubber-pad-w) * -0.0072) calc(var(--rubber-pad-h) * -0.0072) 0px rgba(255,255,255,0.8), calc(var(--rubber-pad-w) * 0.0072) calc(var(--rubber-pad-h) * 0.0072) calc(var(--rubber-pad-h) * 0.0143) rgba(0,0,0,1); */
   /* font-size: 5em; */
-  font-size: var(--rubber-pad-font-size);
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   box-shadow: var(--rubber-pad-box-shadow-default);
-  -webkit-transition: 0.1s ease-out;
-  -moz-transition:    0.1s ease-out;
-  -o-transition:      0.1s ease-out;
-  transition:         0.1s ease-out;
-  /* Disable selection of button text */
-  -webkit-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none; 
-  user-select: none;
-  /* box-sizing: border-box; */
+
 }
 
-/* .rubber-pad::before {
+.btn-rubber-pad::before {
   content: "";
   background: var(--rubber-pad-before-background-color);
-  width: calc(var(--rubber-pad-w) + calc(var(--rubber-pad-h) * 0.21));
-  height: calc(var(--rubber-pad-h) + calc(var(--rubber-pad-h) * 0.21));
+  width: calc(var(--btn-width) + calc(var(--btn-height) * 0.21));
+  height: calc(var(--btn-height) + calc(var(--btn-height) * 0.21));
   position: absolute;
-  top: calc(var(--rubber-pad-h) * -0.1);
-  left: calc(var(--rubber-pad-h) * -0.1);
+  top: calc(var(--btn-height) * -0.1);
+  left: calc(var(--btn-height) * -0.1);
   z-index: -1;
   border-radius: 999px;
   box-shadow: var(--rubber-pad-box-shadow-before);
-} */
+}
 
-.rubber-pad:active {
+.btn-rubber-pad:active {
   color: var(--rubber-pad-active-color);
   text-shadow: 1px 1px 0px var(--rubber-pad-active-text-shadow-color);
   box-shadow: var(--rubber-pad-box-shadow-active);
 }
-
-.rubber-pad-raised:before {
-  content: "";
-  background: var(--rubber-pad-before-background-color);
-  width: calc(var(--rubber-pad-w) + calc(var(--rubber-pad-h) * 0.21));
-  height: calc(var(--rubber-pad-h) + calc(var(--rubber-pad-h) * 0.21));
-  position: absolute;
-  top: calc(var(--rubber-pad-h) * -0.1);
-  left: calc(var(--rubber-pad-h) * -0.1);
-  z-index: -1;
-  border-radius: 999px;
-  box-shadow: var(--rubber-pad-box-shadow-before);
-  display: block;
-}
-
-
-
-
-.btn {
-position: relative;
-cursor: pointer;
-width: 30px;
-height: 30px;
-line-height: 30px;
-background: #25292C;
-margin: 0px auto;
-text-align: center;
-border: none;
-border-radius: 999px;
-color: rgba(155,155,155,1);
-text-shadow: -1px -1px 0px rgba(255,255,255,0.8), 1px 1px 2px rgba(0,0,0,1);
-font-size: 1em;
-font-family: sans-serif;
-box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
-            inset 2px 10px 30px rgba(255,255,255,0.1), /* (a)px (b = a*5)px (b*3)px */
-            inset -1px -1px 2px rgba(0,0,0,0.5), 
-            inset -2px -10px 30px rgba(0,0,0,0.2),
-            1px 5px 30px -4px rgba(0,0,0,1);
--webkit-transition: 0.1s ease-out;
--moz-transition:    0.1s ease-out;
--o-transition:      0.1s ease-out;
-transition:         0.1s ease-out;
-}
-
-.btn:before {
-content: "";
-background: #1A1A1A;
-width: 32px;
-height: 32px;
-position: absolute;
-top: -1px;
-left: -1px;
-z-index: -1;
-
-border-radius: 999px;
-box-shadow: inset -1px -1px 2px rgba(255,255,255,0.3), 
-  inset -5px -15px 40px rgba(255,255,255,0.1),
-  inset 1px 1px 2px rgba(0,0,0,0.5), 
-  inset 5px 15px 40px rgba(0,0,0,0.2),
-  -2px -40px 50px -20px rgba(255,255,255,0.1),
-  2px 35px 50px -10px rgba(0,0,0,0.4),
-  0px 0px 25px 8px rgba(60,60,60,1);
-}
-
-.btn:active {
-color: rgba(0,0,0,0.7);
-text-shadow: 1px 1px 0px rgba(255,255,255,0.15);
-box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
-            inset 3px 15px 45px rgba(0,0,0,0.2),
-            inset -1px -1px 2px rgba(0,0,0,0.5), 
-            inset -3px -15px 45px rgba(255,255,255,0.1),
-            1px 5px 10px -4px rgba(0,0,0,1);
-}
-

@@ -49,9 +49,7 @@ class TimerCanvas extends PureComponent {
         ? isBreak ? 200 : 120 
         : isBreak ? 120 + (80 / 10000 * timeNow) : 200 - (80 / 10000 * timeNow);
       
-      
-
-
+    
       // hsl(200, 100%, 60%) blue
       // hsl(120, 100%, 60%) green
       
@@ -64,19 +62,27 @@ class TimerCanvas extends PureComponent {
       const circ = {
         x: canvas.width / 2, 
         y: canvas.height / 2,
-        r: canvas.height / 2 * 0.90,
+        r: canvas.height / 2 * 0.9,
         lineW: 15,
         arc: {
           ccw1: false,
           ccw2: true,
           // clr1: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
           // clr2: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
-          clr1: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
-          clr2: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
+
+          clr1: isBreak ? "hsl(200, 100%, 50%)" : "hsl(120, 100%, 50%)",
+          // clr2: isBreak ? "hsla(" + hue + ", 100%, 50%, 0.1)" : "hsla(" + hue + ", 100%, 50%, 0.1)",
+          clr2: "hsla(0, 0%, 0%, 0.3)",
+
+          // clr1: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
+          // clr2: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
           get start() { return rotate(0); },
+          /** Break and session arcs run in opposite directions */
           // get end1() { return isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
           // 2nd arc full circle when timer runs out
           // get end2() { return !timeNow ? rotate(rads.full) : isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
+
+
           get end1() { return rotate(timeNow * rads.perSec);},
           get end2() { return !timeNow ? rotate(rads.full) : rotate(timeNow * rads.perSec);},
         },
@@ -92,17 +98,6 @@ class TimerCanvas extends PureComponent {
         ctx.strokeStyle = color;
         ctx.stroke();
       }
-
-      // function drawText(label, time) {
-        
-      //   ctx.fillStyle = "hsl(" + hue + ", 100%, 50%)";
-      //   ctx.textAlign = 'center';
-      //   ctx.font = '1em Arial, Helvetica, sans-serif';
-      //   ctx.textBaseline = 'middle';
-      //   ctx.fillText(label, circ.x, circ.r * 2 /3);
-      //   ctx.font = '2em Arial, Helvetica, sans-serif';
-      //   ctx.fillText(time, circ.x, circ.y);
-      // }
 
       function drawRing() {
         // Clear canvas first
