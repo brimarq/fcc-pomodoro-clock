@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   width: 50%;
-  /* border: 1px solid red; */
 }
 
 #break-label, #session-label {
@@ -12,8 +11,6 @@
   color: var(--rubber-pad-color);
   text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
 }
-
-
 
 .setting-container {
   display: flex;
@@ -45,75 +42,12 @@
 
 #break-length, #session-length {
   font-size: 2em;
-  
-  /* margin: auto;
-  padding: 5% 10%; */
-  /* line-height: 1.5; */
-  /* border: 1px solid red; */
-  
 }
 
 .btn-settings {
-  --pixels-w: 50;
-  --pixels-h: 30;
   --btn-width: 50px;
   --btn-height: 30px;
 }
-
-.btn-setting-up, 
-.btn-setting-down {
-  height: 30px;
-  width: 50px;
-  /* padding: 0;
-  line-height: 30px;
-  border-radius: 10em;
-  border: none; */
-  margin: 7px;
-  /* position: relative;
-  
-  cursor: pointer; */
-  /* background: var(--rubber-pad-background-color);
-
-  box-shadow: 
-    inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-light), 
-    inset 1px 3px 10px var(--rubber-pad-fill-color-light), 
-    inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-dark),  
-    inset -1px -3px 10px var(--rubber-pad-fill-color-dark),
-    0.5px 1px 6px -1px var(--rubber-pad-drop-shadow-color); */
-  
-    
-}
-
-/* .btn-setting-up::before, 
-.btn-setting-down::before {
-  content: "";
-  background: var(--rubber-pad-before-background-color);
-  width: 56px; 
-  height: 36px; 
-  position: absolute;
-  top: -3px; 
-  left: -3px; 
-  z-index: -1;
-  border-radius: 10em;
-  box-shadow: 
-    inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-light), 
-    inset -2px -3px 1px var(--rubber-pad-fill-color-light),
-    inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-dark), 
-    inset 2px 3px 1px var(--rubber-pad-fill-color-dark),
-    -1px -9px 11px -4px var(--rubber-pad-before-shadow-color-light),
-    1px 8px 11px -2px var(--rubber-pad-before-shadow-color-dark),
-    0px 0px 5px 2px var(--rubber-pad-before-edge-blur-color);
-} */
-
-/* .btn-setting-up:active, 
-.btn-setting-down:active {
-  box-shadow: 
-    inset 0.5px 0.5px 0.5px var(--rubber-pad-edge-color-light), 
-    inset 1px 3px 10px var(--rubber-pad-fill-color-dark),
-    inset -0.5px -0.5px 0.5px var(--rubber-pad-edge-color-dark), 
-    inset -1px -3px 10px var(--rubber-pad-fill-color-light),
-    0.5px 1px 2px -1px var(--rubber-pad-drop-shadow-color);
-} */
 
 #session-increment, 
 #session-decrement {
@@ -124,26 +58,3 @@
 #break-decrement {
   margin-right: 0;
 }
-
-
-
-
-/* #session-setting.setting-container {
-  flex-direction: row-reverse;
-}
-
-#session-label, #break-label {
-  font-size: .8rem;
-  text-transform: uppercase;
-  
-}
-
-.setting-display {
-  display: inline-block;
-}
-.setting-buttons {
-  display: inline-block;
-}
-.setting-buttons button {
-  display: block;
-} */

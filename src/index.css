@@ -2,7 +2,6 @@
   /* .rubber-pad colors */
   --rubber-pad-color: hsla(0, 0%, 60%, 1);
   --rubber-pad-background-color: hsla(205, 8%, 15%, 1);
-  /* --rubber-pad-background-color: goldenrod; */
   --rubber-pad-text-shadow-color: hsla(0, 0%, 100%, 0.8);
   --rubber-pad-active-color: hsla(0, 0%, 0%, 0.7);
   --rubber-pad-active-text-shadow-color: hsla(0, 0%, 100%, 0.15);
@@ -15,7 +14,6 @@
   --rubber-pad-before-shadow-color-light: hsla(0, 0%, 100%, 0.1);
   --rubber-pad-before-shadow-color-dark: hsla(0, 0%, 0%, 0.4); 
   --rubber-pad-before-edge-blur-color: hsla(0, 0%, 23%, 1);
-    
 }
 
 
