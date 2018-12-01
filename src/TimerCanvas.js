@@ -21,35 +21,17 @@ class TimerCanvas extends PureComponent {
 
   drawTimeRing() {
     const { isBreak, isRunning, breakLength, sessionLength, timer } = this.props;
-    // const totalTime = isBreak ? breakLength * 60 : sessionLength * 60;
-    // const timeNow = timer;
-    // const timerLabel = isBreak ? "Break" : "Session";
-    // const mmss = mmssFormat(timer);
-
-    // function mmssFormat(time) {
-    //   //const timeInSec = Math.ceil(time / 1000);
-    //   const padZero = (n) => n < 10 ? '0' + n : n;
-    //   const mm = padZero(Math.floor(time / 60));
-    //   const ss = padZero(time % 60);
-    //   return mm + ':' + ss;
-    // }
     
     // draw fn w/default
     const draw = (timeNow = timer * 1000) => {
       const totalTime = isBreak ? breakLength * 60000 : sessionLength * 60000;
       const canvas = this.canvas.current;
       const ctx = canvas.getContext("2d");
-      // const hue = 130 / totalTime * timeNow;
-     
-      // const hue = isBreak ? 120 + (80 / totalTime * timeNow) : 200 - (80 / totalTime * timeNow);
 
-      // const hue = isBreak ? 120 + (80 / totalTime * timeNow) : 200 - (80 / totalTime * timeNow);
-
-      const hue = timeNow > 10000 
-        ? isBreak ? 200 : 120 
-        : isBreak ? 120 + (80 / 10000 * timeNow) : 200 - (80 / 10000 * timeNow);
+      // const hue = timeNow > 10000 
+      //   ? isBreak ? 200 : 120 
+      //   : isBreak ? 120 + (80 / 10000 * timeNow) : 200 - (80 / 10000 * timeNow);
       
-    
       // hsl(200, 100%, 60%) blue
       // hsl(120, 100%, 60%) green
       
@@ -69,9 +51,7 @@ class TimerCanvas extends PureComponent {
           ccw2: true,
           // clr1: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
           // clr2: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
-
           clr1: isBreak ? "hsl(200, 100%, 50%)" : "hsl(120, 100%, 50%)",
-          // clr2: isBreak ? "hsla(" + hue + ", 100%, 50%, 0.1)" : "hsla(" + hue + ", 100%, 50%, 0.1)",
           clr2: "hsla(0, 0%, 0%, 0.2)",
 
           // clr1: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
@@ -81,7 +61,6 @@ class TimerCanvas extends PureComponent {
           // get end1() { return isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
           // 2nd arc full circle when timer runs out
           // get end2() { return !timeNow ? rotate(rads.full) : isBreak ? rotate((totalTime - timeNow) * rads.perSec) : rotate(timeNow * rads.perSec);},
-
 
           get end1() { return rotate(timeNow * rads.perSec);},
           get end2() { return !timeNow ? rotate(rads.full) : rotate(timeNow * rads.perSec);},
@@ -105,7 +84,6 @@ class TimerCanvas extends PureComponent {
         drawArc(circ.x, circ.y, circ.r, circ.arc.start, circ.arc.end2, circ.arc.ccw2, circ.lineW, circ.arc.clr2);
         // Time remaining arc
         drawArc(circ.x, circ.y, circ.r, circ.arc.start, circ.arc.end1, circ.arc.ccw1, circ.lineW, circ.arc.clr1);
-        // drawText(timerLabel, mmss);
       }
 
       drawRing();
@@ -156,7 +134,5 @@ class TimerCanvas extends PureComponent {
     );
   }
 }
-
-
 
 export default TimerCanvas;
