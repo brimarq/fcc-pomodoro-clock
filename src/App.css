@@ -17,6 +17,7 @@
 .App-header {
   grid-area: hdr;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   /* background-color: #222; */
@@ -34,7 +35,7 @@
   /* align-items: space-around; */
   /* justify-content: center; */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

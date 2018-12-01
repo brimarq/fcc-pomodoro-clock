@@ -1,4 +1,7 @@
 :root {
+  /*** 
+  * Rubber Pad styling adapted from "Blob Button" https://jsfiddle.net/andykenward/9y1jjsuz 
+  ***/
   /* .rubber-pad colors */
   --rubber-pad-color: hsla(0, 0%, 60%, 1);
   --rubber-pad-background-color: hsla(205, 8%, 15%, 1);
@@ -14,9 +17,47 @@
   --rubber-pad-before-shadow-color-light: hsla(0, 0%, 100%, 0.1);
   --rubber-pad-before-shadow-color-dark: hsla(0, 0%, 0%, 0.4); 
   --rubber-pad-before-edge-blur-color: hsla(0, 0%, 23%, 1);
+
+  --rubber-pad-box-shadow-default: 
+    /* upper left edge shine */
+    inset 0.36px 0.25px 0.5px var(--rubber-pad-edge-color-light),
+    /* upper fill light */ 
+    inset 1px 3px 10px var(--rubber-pad-fill-color-light), 
+    /* bottom edge shade */ 
+    inset -0.36px -0.25px 0.5px var(--rubber-pad-edge-color-dark),
+    /* lower fill shade */  
+    inset -1px -3px 10px var(--rubber-pad-fill-color-dark),
+    /* drop shadow */
+    0.36px 1px 7px -1px var(--rubber-pad-drop-shadow-color);
+
+  --rubber-pad-box-shadow-before: 
+    /* bottom edge shine */
+    inset -0.36px -0.25px 0.5px var(--rubber-pad-edge-color-light), 
+    /* lower fill light */
+    inset -1.8px -3px 9px var(--rubber-pad-fill-color-light),
+    /* top edge shade */
+    inset 0.36px 0.25px 0.5px var(--rubber-pad-edge-color-dark), 
+    /* upper fill shade */
+    inset 1.8px 3px 9px var(--rubber-pad-fill-color-dark),
+    /* upper outer shadow */
+    -0.75px -9px 11px -4px var(--rubber-pad-before-shadow-color-light),
+    /* lower outer shadow */
+    0.75px 7.5px 11px -2px var(--rubber-pad-before-shadow-color-dark),
+    /* light blur around border */
+    0px 0px 5.5px 1.75px var(--rubber-pad-before-edge-blur-color);
+  
+  --rubber-pad-box-shadow-active: 
+    /* upper left edge shine (same as default) */
+    inset 0.36px 0.25px 0.5px var(--rubber-pad-edge-color-light), 
+    /* upper fill shade ( xy offsets and blur same as default, color dark */
+    inset 1px 3px 10px var(--rubber-pad-fill-color-dark),
+    /* bottom edge shade (same as default) */
+    inset -0.36px -0.25px 0.5px var(--rubber-pad-edge-color-dark), 
+    /* lower fill light ( xy offsets and blur same as default, color light */
+    inset -1px -3px 10px var(--rubber-pad-fill-color-light),
+    /* drop shadow (same as default w/shorter blur radius) */
+    0.36px 1px 2px -1px var(--rubber-pad-drop-shadow-color);
 }
-
-
 
 body {
   margin: 0;
@@ -83,90 +124,3 @@ button:focus {
   outline: none;
 }
 
-/*** 
-  * Rubber Pad styling adapted from "Blob Button" https://jsfiddle.net/andykenward/9y1jjsuz 
-***/
-
-.btn-rubber-pad {
-  /**
-    --btn-width, --btn-height (in pixels) to be set on the button in a 
-    preceeding id/class or inline style.
-  */
-  
-  /* box-shadows */
-  --rubber-pad-box-shadow-default: 
-    /* upper left edge shine */
-    inset calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-light),
-    /* upper fill light */ 
-    inset calc(var(--btn-width) * 0.0214) calc(var(--btn-height) * 0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-light), 
-    /* bottom edge shade */ 
-    inset calc(var(--btn-width) * -0.0072) calc(var(--btn-height) * -0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-dark),
-    /* lower fill shade */  
-    inset calc(var(--btn-width) * -0.0214) calc(var(--btn-height) * -0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-dark),
-    /* drop shadow */
-    calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.036) calc(var(--btn-height) * 0.21) calc(var(--btn-height) * -0.029) var(--rubber-pad-drop-shadow-color);
-
-  --rubber-pad-box-shadow-before: 
-    /* bottom edge shine */
-    inset calc(var(--btn-width) * -0.0072) calc(var(--btn-height) * -0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-light), 
-    /* lower fill light */
-    inset calc(var(--btn-width) * -0.036) calc(var(--btn-height) * -0.1) calc(var(--btn-height) * 0.286) var(--rubber-pad-fill-color-light),
-    /* top edge shade */
-    inset calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-dark), 
-    /* upper fill shade */
-    inset calc(var(--btn-width) * 0.036) calc(var(--btn-height) * 0.1) calc(var(--btn-height) * 0.286) var(--rubber-pad-fill-color-dark),
-    /* upper outer shadow */
-    calc(var(--btn-width) * -0.0143) calc(var(--btn-height) * -0.286) calc(var(--btn-height) * 0.358) calc(var(--btn-height) * -0.143) var(--rubber-pad-before-shadow-color-light),
-    /* lower outer shadow */
-    calc(var(--btn-width) * 0.0143) calc(var(--btn-height) * 0.25) calc(var(--btn-height) * 0.358) calc(var(--btn-height) * -0.072) var(--rubber-pad-before-shadow-color-dark),
-    /* light blur around border */
-    0px 0px calc(var(--btn-height) * 0.179) calc(var(--btn-height) * 0.0573) var(--rubber-pad-before-edge-blur-color);
-
-  --rubber-pad-box-shadow-active: 
-    /* upper left edge shine (same as default) */
-    inset calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-light), 
-    /* upper fill shade ( xy offsets and blur same as default, color dark */
-    inset calc(var(--btn-width) * 0.0214) calc(var(--btn-height) * 0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-dark),
-    /* bottom edge shade (same as default) */
-    inset calc(var(--btn-width) * -0.0072) calc(var(--btn-height) * -0.0072) calc(var(--btn-height) * 0.0143) var(--rubber-pad-edge-color-dark), 
-    /* lower fill light ( xy offsets and blur same as default, color light */
-    inset calc(var(--btn-width) * -0.0214) calc(var(--btn-height) * -0.1) calc(var(--btn-height) * 0.32) var(--rubber-pad-fill-color-light),
-    /* drop shadow (same as default w/shorter blur radius) */
-    calc(var(--btn-width) * 0.0072) calc(var(--btn-height) * 0.036) calc(var(--btn-height) * 0.072) calc(var(--btn-height) * -0.029) var(--rubber-pad-drop-shadow-color);
-  
-  position: relative;
-  cursor: pointer;
-  width: var(--btn-width); 
-  height: var(--btn-height); 
-  line-height: var(--btn-height); 
-  background: var(--rubber-pad-background-color);
-  margin: calc(var(--btn-height) * .25) calc(var(--btn-height) * .25);
-  border: none;
-  text-align: center;
-  border-radius: 999px;
-  color: var(--rubber-pad-color);
-  text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
-  /* font-size: 5em; */
-  /* font-family: sans-serif; */
-  box-shadow: var(--rubber-pad-box-shadow-default);
-
-}
-
-.btn-rubber-pad::before {
-  content: "";
-  background: var(--rubber-pad-before-background-color);
-  width: calc(var(--btn-width) + calc(var(--btn-height) * 0.21));
-  height: calc(var(--btn-height) + calc(var(--btn-height) * 0.21));
-  position: absolute;
-  top: calc(var(--btn-height) * -0.1);
-  left: calc(var(--btn-height) * -0.1);
-  z-index: -1;
-  border-radius: 999px;
-  box-shadow: var(--rubber-pad-box-shadow-before);
-}
-
-.btn-rubber-pad:active {
-  color: var(--rubber-pad-active-color);
-  text-shadow: 1px 1px 0px var(--rubber-pad-active-text-shadow-color);
-  box-shadow: var(--rubber-pad-box-shadow-active);
-}

@@ -88,11 +88,20 @@
     /* bottom edge shine */
     inset -2px -2px 4px var(--rubber-pad-edge-color-light), 
     /* lower fill light */
-    inset -9px -25px 71px var(--rubber-pad-fill-color-light),
+    inset -9px -25px 71px -15px var(--rubber-pad-fill-color-light),
     /* top edge shade */
     inset 2px 2px 4px var(--rubber-pad-edge-color-dark), 
     /* upper fill shade */
     inset 9px 25px 71px var(--rubber-pad-fill-color-dark);
+}
+
+#timer-face-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: inherit;
+  z-index: 1;
 }
 
 #timer-control-panel {

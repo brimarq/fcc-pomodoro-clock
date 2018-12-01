@@ -6,8 +6,40 @@
 }
 
 .btn-controls {
-  --btn-width: 115px;
-  --btn-height: 30px;
+  position: relative;
+  cursor: pointer;
+  width: 115px; 
+  height: 30px; 
+  line-height: 30px; 
+  background: var(--rubber-pad-background-color);
+  margin: 7.5px 7.5px;
+  border: none;
+  text-align: center;
+  border-radius: 999px;
+  color: var(--rubber-pad-color);
+  text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
+  /* font-size: 5em; */
+  /* font-family: sans-serif; */
+  box-shadow: var(--rubber-pad-box-shadow-default);
+}
+
+.btn-controls::before {
+  content: "";
+  background: var(--rubber-pad-before-background-color);
+  width: 121px; /* base element width + 6px */
+  height: 36px; /* base element height + 6px */
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  z-index: -1;
+  border-radius: 999px;
+  box-shadow: var(--rubber-pad-box-shadow-before);
+}
+
+.btn-controls:active {
+  color: var(--rubber-pad-active-color);
+  text-shadow: 1px 1px 0px var(--rubber-pad-active-text-shadow-color);
+  box-shadow: var(--rubber-pad-box-shadow-active);
 }
 
 button#start_stop {

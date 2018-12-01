@@ -60,12 +60,33 @@ class Timer extends PureComponent {
 
 
   render() {
-    // const { isBreak, isRunning } = this.props;
+    const { isBreak } = this.props;
+    const tfTextColor = "hsla(0, 0%, 100%, 0.8)";
+    const tfBottomText = isBreak ? "BREAK" : "SESSION";
     
     return (
       <div id="timer">
-        {/* <h1>Pomodoro Clock</h1> */}
         <div id="timer-face">
+          <svg id="timer-face-text" viewBox="0 0 250 250" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <path id="topArc" d="M25 125 a 100 100, 0 0,1 200 0"/>
+              <path id="bottomArc" d="M25 125 a 100 100, 0 0,0 200 0"/>
+            </defs>
+            <text fill={tfTextColor} textAnchor="middle" dy="0.75em" style={{letterSpacing: "0.15em"}}>
+              <textPath xlinkHref="#topArc" startOffset="50%" method="stretch" spacing="auto">POMODORO CLOCK</textPath>
+            </text>
+            <text fill={tfTextColor} style={{textAnchor: "middle", letterSpacing: "0.15em"}}>
+              <textPath xlinkHref="#bottomArc" startOffset="50%" method="stretch" spacing="auto">{tfBottomText}</textPath>
+            </text>
+          
+                            
+            {/* <circle id="tfCircle" cx="50%" cy="50%" r="75" fill="none" stroke="red" stroke-width="2" pathLength="360"/>
+            <text fill="white">
+              <textPath xlinkHref="#tfCircle" startOffset="75%">POMODORO CLOCK</textPath>
+            </text> */}
+          
+
+          </svg>
           <TimerCanvas size="250" {...this.props} />
           <TimerDisplay />
         </div>

@@ -7,9 +7,9 @@ const initState = {
   breakLength: 1,
   sessionLength: 1,
   timer: 1 * 60,
-  /* breakLength: 5,
-  sessionLength: 25,
-  timer: 25 * 60, */
+  // breakLength: 5,
+  // sessionLength: 25,
+  // timer: 25 * 60,
   isBreak: false,
   isRunning: false,
 };

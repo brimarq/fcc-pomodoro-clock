@@ -72,7 +72,7 @@ class TimerCanvas extends PureComponent {
 
           clr1: isBreak ? "hsl(200, 100%, 50%)" : "hsl(120, 100%, 50%)",
           // clr2: isBreak ? "hsla(" + hue + ", 100%, 50%, 0.1)" : "hsla(" + hue + ", 100%, 50%, 0.1)",
-          clr2: "hsla(0, 0%, 0%, 0.3)",
+          clr2: "hsla(0, 0%, 0%, 0.2)",
 
           // clr1: isBreak ? "hsl(" + hue + ", 15%, 50%)" : "hsl(" + hue + ", 100%, 50%)",
           // clr2: isBreak ? "hsl(" + hue + ", 100%, 50%)" : "hsl(" + hue + ", 15%, 50%)",
@@ -88,9 +88,8 @@ class TimerCanvas extends PureComponent {
         },
       }
 
-      
-
       function rotate(radians) { return radians - rads.qtr; }
+
       function drawArc(x, y, r, start, end, isCCW, lineW, color) {
         ctx.beginPath();
         ctx.arc(x, y, r, start, end, isCCW);

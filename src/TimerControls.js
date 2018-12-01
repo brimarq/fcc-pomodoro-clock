@@ -7,8 +7,8 @@ class TimerControls extends PureComponent {
     const startStopLabel = isRunning ? "PAUSE" : "START";
     return (
       <div id="timer-controls">
-       <button id="start_stop" className="btn-controls btn-rubber-pad" type="button" onClick={handleTimerControl}>{startStopLabel}</button>
-       <button id="reset" className="btn-controls btn-rubber-pad" type="button" onClick={handleTimerControl}>RESET</button>
+       <button id="start_stop" className="btn-controls" type="button" onClick={handleTimerControl}>{startStopLabel}</button>
+       <button id="reset" className="btn-controls" type="button" onClick={handleTimerControl}>RESET</button>
      </div>
     );
   }
