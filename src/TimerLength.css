@@ -9,13 +9,12 @@
   font-size: 1em;
   margin: 5px 0;
   color: var(--rubber-pad-color);
-  text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
+  text-shadow: var(--rubber-pad-text-shadow);
 }
 
 .setting-container {
   display: flex;
   flex-direction: row;
-  
 }
 
 #break-setting .setting-container {
@@ -27,7 +26,6 @@
   flex-direction: column;
   width: 50%;
   align-items: center;
-  
 }
 
 .setting-length {
@@ -58,9 +56,7 @@
   text-align: center;
   border-radius: 999px;
   color: var(--rubber-pad-color);
-  text-shadow: -1px -1px 0px var(--rubber-pad-text-shadow-color), 1px 1px 2px var(--rubber-pad-drop-shadow-color);
-  /* font-size: 5em; */
-  /* font-family: sans-serif; */
+  text-shadow: var(--rubber-pad-text-shadow);
   box-shadow: var(--rubber-pad-box-shadow-default);
 }
 
@@ -79,8 +75,12 @@
 
 .btn-settings:active {
   color: var(--rubber-pad-active-color);
-  text-shadow: 1px 1px 0px var(--rubber-pad-active-text-shadow-color);
+  text-shadow: var(--rubber-pad-text-shadow-active);
   box-shadow: var(--rubber-pad-box-shadow-active);
+}
+
+.btn-settings:hover {
+ font-size: 120%;
 }
 
 #session-increment, 
