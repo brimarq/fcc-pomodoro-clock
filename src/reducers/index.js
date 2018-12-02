@@ -3,13 +3,13 @@ import { SET_BREAK_LENGTH, SET_SESSION_LENGTH, SET_IS_RUNNING, RESET_TIMER, TOGG
 /**** REDUCERS ****/
 
 const initState = {
-  // TESTING VALUES //
+  /* // TESTING VALUES //
   breakLength: 1,
   sessionLength: 1,
-  timer: 1 * 60,
-  // breakLength: 5,
-  // sessionLength: 25,
-  // timer: 25 * 60,
+  timer: 1 * 60, */
+  breakLength: 5,
+  sessionLength: 25,
+  timer: 25 * 60,
   isBreak: false,
   isRunning: false,
 };
