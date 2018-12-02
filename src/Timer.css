@@ -10,17 +10,10 @@
   align-items: center;
   border-radius: 10em 10em 2em 2em;
   box-shadow: 
-    /* upper left edge shine */
-    inset 2px 3px 6px var(--rubber-pad-edge-color-light),
-    /* upper fill light */ 
+    inset 2px 3px 6px var(--rubber-pad-edge-color-light), 
     inset 6px 44px 143px var(--rubber-pad-fill-color-light), 
-    /* bottom edge shade */ 
-    inset -2px -3px 6px var(--rubber-pad-edge-color-dark),
-    /* lower fill shade */  
-    /* inset -6px -44px 143px var(--rubber-pad-fill-color-dark), */
-    /* drop shadow */
-    /* 2px 16px 94px -13px var(--rubber-pad-drop-shadow-color); */
-    12px 16px 94px -19px var(--rubber-pad-drop-shadow-color);
+    inset -2px -3px 6px var(--rubber-pad-edge-color-dark), 
+    12px 16px 94px -19px var(--rubber-pad-drop-shadow-color); 
   -webkit-user-select: none; 
   -moz-user-select: none; 
   -ms-user-select: none; 
@@ -34,45 +27,12 @@
   width: 250px;
   height: 250px;
   border-radius: 999px;
-  /* background-color: var(--rubber-pad-background-color); */
-  --timer-face-box-shadow: 
-    /* upper left edge shine */
-    inset 2px 2px 4px var(--rubber-pad-edge-color-light),
-    /* upper fill light */ 
-    inset 5px 25px 80px var(--rubber-pad-fill-color-light), 
-    /* bottom edge shade */ 
-    inset -2px -2px 4px var(--rubber-pad-edge-color-dark),
-    /* lower fill shade */  
-    inset -5px -25px 80px var(--rubber-pad-fill-color-dark),
-    /* drop shadow */
-    2px 9px 52px -9px var(--rubber-pad-drop-shadow-color);
-
-  --timer-face-box-shadow-before: 
-    /* bottom edge shine */
-    inset -2px -2px 4px var(--rubber-pad-edge-color-light), 
-    /* lower fill light */
-    inset -9px -25px 71px var(--rubber-pad-fill-color-light),
-    /* top edge shade */
-    inset 2px 2px 4px var(--rubber-pad-edge-color-dark), 
-    /* upper fill shade */
-    inset 9px 25px 71px var(--rubber-pad-fill-color-dark);
-
-    /* light blur around border */
-    /* 0px 0px 45px -14px var(--rubber-pad-before-edge-blur-color); */
-    
-
   box-shadow: 
-    /* upper left edge shine */
-    inset 2px 2px 4px var(--rubber-pad-edge-color-light),
-    /* upper fill light */ 
+    inset 2px 2px 4px var(--rubber-pad-edge-color-light), 
     inset 5px 25px 80px var(--rubber-pad-fill-color-light), 
-    /* bottom edge shade */ 
-    inset -2px -2px 4px var(--rubber-pad-edge-color-dark),
-    /* lower fill shade */  
-    inset -5px -25px 80px var(--rubber-pad-fill-color-dark),
-    /* drop shadow */
+    inset -2px -2px 4px var(--rubber-pad-edge-color-dark), 
+    inset -5px -25px 80px var(--rubber-pad-fill-color-dark), 
     2px 9px 52px -9px var(--rubber-pad-drop-shadow-color);
-  
 }
 
 #timer-face::before {
@@ -85,15 +45,10 @@
   left: 0;
   z-index: -1;
   border-radius: 999px;
-
   box-shadow: 
-    /* bottom edge shine */
     inset -2px -2px 4px var(--rubber-pad-edge-color-light), 
-    /* lower fill light */
-    inset -9px -25px 71px -15px var(--rubber-pad-fill-color-light),
-    /* top edge shade */
+    inset -9px -25px 71px -15px var(--rubber-pad-fill-color-light), 
     inset 2px 2px 4px var(--rubber-pad-edge-color-dark), 
-    /* upper fill shade */
     inset 9px 25px 71px var(--rubber-pad-fill-color-dark);
 }
 
